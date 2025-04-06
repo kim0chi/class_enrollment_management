@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module">
+    <sys_ui_module action="DELETE">
+        <active>true</active>
+        <application display_value="Enrollments">7e8f22a0c3f4a210785d9e1d05013163</application>
+        <filter/>
+        <name>Enrollments</name>
+        <order/>
+        <path/>
+        <path_relative_to_root>false</path_relative_to_root>
+        <roles>x_1620151_class_en.enrollments_user</roles>
+        <sys_class_name>sys_ui_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 05:41:00</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>768f22a0c3f4a210785d9e1d05013166</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Enrollments</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sys_ui_module_768f22a0c3f4a210785d9e1d05013166</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 05:41:00</sys_updated_on>
+        <table>x_1620151_class_en_enrollments</table>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+    </sys_ui_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>5619cf80fbb0e6d0363cf633beefdcea</instance_id>
+        <instance_name>dev316528</instance_name>
+        <name>sys_ui_module_768f22a0c3f4a210785d9e1d05013166</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module"><sys_ui_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="Enrollments">7e8f22a0c3f4a210785d9e1d05013163</application><filter/><name>Enrollments</name><order/><path/><path_relative_to_root>false</path_relative_to_root><roles>x_1620151_class_en.enrollments_user</roles><sys_class_name>sys_ui_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-04-06 05:41:00</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>768f22a0c3f4a210785d9e1d05013166</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Enrollments</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sys_ui_module_768f22a0c3f4a210785d9e1d05013166</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-04-06 05:41:00</sys_updated_on><table>x_1620151_class_en_enrollments</table><uncancelable>false</uncancelable><view_name/></sys_ui_module></record_update>]]></payload>
+        <payload_hash>-940794517</payload_hash>
+        <record_name>Enrollments</record_name>
+        <reverted_from/>
+        <source>ac5635a0c3b0a210785d9e1d05013184</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 05:41:00</sys_created_on>
+        <sys_id>3a8f22a0c3f4a210785d9e1d05013168</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196099dd30d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 05:41:00</sys_updated_on>
+        <type>Module</type>
+        <update_guid>3e8f22a0cdf4a210ed5c333b1f3c4567</update_guid>
+        <update_guid_history>3e8f22a0cdf4a210ed5c333b1f3c4567:-940794517</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 05:41:16</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_module">sys_ui_module</sys_db_object>
+        <sys_id>5faa24cd36ef4a0280237db440088c31</sys_id>
+        <sys_metadata>768f22a0c3f4a210785d9e1d05013166</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Enrollments</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sys_ui_module_768f22a0c3f4a210785d9e1d05013166</sys_update_name>
+        <sys_update_version display_value="sys_ui_module_768f22a0c3f4a210785d9e1d05013166">3a8f22a0c3f4a210785d9e1d05013168</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 05:41:16</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

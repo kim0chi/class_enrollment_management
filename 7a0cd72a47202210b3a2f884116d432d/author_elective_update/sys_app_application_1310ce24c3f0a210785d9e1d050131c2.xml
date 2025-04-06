@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_application">
+    <sys_app_application action="DELETE">
+        <active>true</active>
+        <category display_value="Custom Applications">e0355b31ef303000a61d5a3615c0fb78</category>
+        <description/>
+        <device_type>browser</device_type>
+        <hint/>
+        <name>Courses</name>
+        <order>100</order>
+        <roles>x_1620151_class_en.courses_user</roles>
+        <sys_class_name>sys_app_application</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:13:46</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>1310ce24c3f0a210785d9e1d050131c2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Courses</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sys_app_application_1310ce24c3f0a210785d9e1d050131c2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:13:46</sys_updated_on>
+        <title>Courses</title>
+        <view_name/>
+    </sys_app_application>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>5619cf80fbb0e6d0363cf633beefdcea</instance_id>
+        <instance_name>dev316528</instance_name>
+        <name>sys_app_application_1310ce24c3f0a210785d9e1d050131c2</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_application"><sys_app_application action="INSERT_OR_UPDATE"><active>true</active><category display_value="Custom Applications">e0355b31ef303000a61d5a3615c0fb78</category><description/><device_type>browser</device_type><hint/><name>Courses</name><order>100</order><roles>x_1620151_class_en.courses_user</roles><sys_class_name>sys_app_application</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-04-06 02:13:46</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>1310ce24c3f0a210785d9e1d050131c2</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Courses</sys_name><sys_overrides/><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sys_app_application_1310ce24c3f0a210785d9e1d050131c2</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-04-06 02:13:46</sys_updated_on><title>Courses</title><view_name/></sys_app_application></record_update>]]></payload>
+        <payload_hash>-1708708202</payload_hash>
+        <record_name>Courses</record_name>
+        <reverted_from/>
+        <source>ac5635a0c3b0a210785d9e1d05013184</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:13:46</sys_created_on>
+        <sys_id>9b10ce24c3f0a210785d9e1d050131c5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19608e01ac30000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:13:46</sys_updated_on>
+        <type>Application Menu</type>
+        <update_guid>9f10ce2443f0a210ebf1b4ee254db6c4</update_guid>
+        <update_guid_history>9f10ce2443f0a210ebf1b4ee254db6c4:-1708708202</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Courses">b841ca24c3f0a210785d9e1d0501316d</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:18:48</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_application">sys_app_application</sys_db_object>
+        <sys_id>560cab6697db4430903c4f1b33b34840</sys_id>
+        <sys_metadata>1310ce24c3f0a210785d9e1d050131c2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Courses</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sys_app_application_1310ce24c3f0a210785d9e1d050131c2</sys_update_name>
+        <sys_update_version display_value="sys_app_application_1310ce24c3f0a210785d9e1d050131c2">9b10ce24c3f0a210785d9e1d050131c5</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:18:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

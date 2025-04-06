@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="85510aa4c3f0a210785d9e1d0501316a" label="Courses" max_length="40" name="x_1620151_class_en_courses" type="collection">
+        <element label="Course Name" max_length="40" name="course_name" type="string"/>
+        <element label="Description" max_length="1000" name="description" type="string"/>
+        <element label="Units" max_length="40" name="units" type="integer"/>
+        <element display="true" label="Course ID" max_length="40" name="course_id" type="string"/>
+    </element>
+</database>

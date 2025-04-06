@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:13:47</sys_created_on>
+        <sys_id>1f10ce24c3f0a210785d9e1d050131f8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1620151_class_en_courses.x_1620151_class_en.courses_user</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_security_acl display_value="x_1620151_class_en_courses">1710ce24c3f0a210785d9e1d050131f5</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_1f10ce24c3f0a210785d9e1d050131f8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:13:47</sys_updated_on>
+        <sys_user_role display_value="x_1620151_class_en.courses_user" name="x_1620151_class_en.courses_user">cf10ce24c3f0a210785d9e1d05013170</sys_user_role>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>5619cf80fbb0e6d0363cf633beefdcea</instance_id>
+        <instance_name>dev316528</instance_name>
+        <name>sys_security_acl_role_1f10ce24c3f0a210785d9e1d050131f8</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-04-06 02:13:47</sys_created_on><sys_id>1f10ce24c3f0a210785d9e1d050131f8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_1620151_class_en_courses.x_1620151_class_en.courses_user</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_security_acl display_value="x_1620151_class_en_courses">1710ce24c3f0a210785d9e1d050131f5</sys_security_acl><sys_update_name>sys_security_acl_role_1f10ce24c3f0a210785d9e1d050131f8</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-04-06 02:13:47</sys_updated_on><sys_user_role display_value="x_1620151_class_en.courses_user" name="x_1620151_class_en.courses_user">cf10ce24c3f0a210785d9e1d05013170</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>309821833</payload_hash>
+        <record_name>x_1620151_class_en_courses.x_1620151_class_en.courses_user</record_name>
+        <reverted_from/>
+        <source>ac5635a0c3b0a210785d9e1d05013184</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:13:47</sys_created_on>
+        <sys_id>97100264c3f0a210785d9e1d05013108</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19608e01cf20000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:13:47</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>9b100264bcf0a210b6c48ce77d88a307</update_guid>
+        <update_guid_history>9b100264bcf0a210b6c48ce77d88a307:309821833</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="x_1620151_class_en_courses.x_1620151_class_en.courses_user">8231c6a4c3f0a210785d9e1d05013134</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-06 02:18:37</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>232bffb61a4a4ca69a992b8b8e9fefa1</sys_id>
+        <sys_metadata>1f10ce24c3f0a210785d9e1d050131f8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1620151_class_en_courses.x_1620151_class_en.courses_user</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent display_value="">1710ce24c3f0a210785d9e1d050131f5</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_1f10ce24c3f0a210785d9e1d050131f8</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_1f10ce24c3f0a210785d9e1d050131f8">97100264c3f0a210785d9e1d05013108</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-06 02:18:37</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

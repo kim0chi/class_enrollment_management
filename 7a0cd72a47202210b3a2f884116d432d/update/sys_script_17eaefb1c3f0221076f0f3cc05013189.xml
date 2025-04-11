@@ -29,39 +29,41 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 	const MAX_STUDENTS = 20;
-	var uniqueStudents = new Set();
 
-	var gr = new GlideRecord('x_1620151_class_en_enrollments');
-	gr.addQuery('section', current.section);
-
-	// exclude current record if updating
+	var ga = new GlideAggregate('x_1620151_class_en_enrollments');
+	ga.addQuery('section', current.section);
+	
 	if (current.operation() === 'update') {
-		gr.addQuery('sys_id', '!=', current.sys_id);
+		ga.addQuery('sys_id', '!=', current.sys_id);
 	}
-	gr.query();
 
-	while (gr.next()) {
-		if (gr.student) {
-			uniqueStudents.add(gr.student.toString());
+	ga.addNotNullQuery('student');
+	ga.groupBy('student');
+	ga.query();
+
+	var totalStudents = 0;
+	var addedToSection = false;
+
+	while (ga.next()) {
+		totalStudents++;
+		if (ga.student.toString() === current.student.toString()) {
+			addedToSection = true;
 		}
 	}
 
-	// add the current student being enrolled
-	uniqueStudents.add(current.student.toString());
+	if (!addedToSection) {
+		totalStudents++;
+	}
 
-	var totalStudents = uniqueStudents.size;
 	if (totalStudents > MAX_STUDENTS) {
 		gs.addErrorMessage('Maximum is ' + MAX_STUDENTS + '. Cannot enroll another student.');
 		current.setAbortAction(true);
-	} else {
+	} else if (totalStudents < MAX_STUDENTS) {
 		var remaining = MAX_STUDENTS - totalStudents;
-		if (remaining > 0) {
-			gs.addInfoMessage('That section currently has ' + totalStudents + ' student(s). You can still add ' + remaining + ' more student(s).');
-		} else {
-			gs.addInfoMessage('That was the last slot. Section is now full.');
-		}
+		gs.addInfoMessage('That section currently has ' + totalStudents + ' student(s). You can still add ' + remaining + ' more student(s).');
+	} else {
+		gs.addInfoMessage('That was the last slot. Section is now full.');
 	}
-
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -69,7 +71,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>17eaefb1c3f0221076f0f3cc05013189</sys_id>
-        <sys_mod_count>36</sys_mod_count>
+        <sys_mod_count>44</sys_mod_count>
         <sys_name>Limit 20 Students Per Class</sys_name>
         <sys_overrides/>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
@@ -77,7 +79,7 @@
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sys_script_17eaefb1c3f0221076f0f3cc05013189</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-11 07:37:01</sys_updated_on>
+        <sys_updated_on>2025-04-11 14:18:40</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

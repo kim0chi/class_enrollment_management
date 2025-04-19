@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="par_visualization">
+    <par_visualization action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <certified>false</certified>
+        <description/>
+        <macroponent display_value="Horizontal bar">85855283b7e03010097cb81cde11a91d</macroponent>
+        <name>Student Enrollments by Year</name>
+        <properties>{"configVersion":"23.0.0-ci-SNAPSHOT","yAxisHidden":false,"yAxisPosition":"bottom","yAxisShowGrid":true,"xAxisWrapLabels":false,"xAxisMaxLabelSize":100,"xAxisTruncationType":"end","yAxisStyle":"clean","showLegend":true,"showLegendValue":false,"legendPosition":"bottom","legendHorizontalAlignment":"center","legendExpandToFit":false,"showDataLabels":true,"dataLabelPosition":"middle","showStackedValues":"none","showOverlappingLabels":false,"newReporting":false,"dataSources":[{"isDatabaseView":false,"allowRealTime":true,"sourceType":"table","tableOrViewName":"x_1620151_class_en_enrollments","filterQuery":"","preferredVisualizations":["d24d53f60350de7a652caf3188a46ed2"],"id":"dGFibGV4XzE2MjAxNTFfY2xhc3NfZW5fZW5yb2xsbWVudHMxNzQ1MDI3NjU3MjMyNzk1OTI5OTIuNzk4OTQ4NDg=","dataCategories":["trend","group","simple"]}],"showHeader":true,"showTotalAggregate":false,"showSubAggregate":false,"showFirstGroupAggregate":false,"showSecondGroupAggregate":false,"hideMatrixAggregate":false,"wrapTitle":false,"showHeaderSeparator":false,"headerTitle":"Student Enrollments by Year","showBorder":true,"bareBorder":false,"telemetry":"null","showDataPassthrough":false,"metrics":[{"dataSource":"dGFibGV4XzE2MjAxNTFfY2xhc3NfZW5fZW5yb2xsbWVudHMxNzQ1MDI3NjU3MjMyNzk1OTI5OTIuNzk4OTQ4NDg=","id":"ZEdGaWJHVjRYekUyTWpBeE5URmZZMnhoYzNOZlpXNWZaVzV5YjJ4c2JXVnVkSE14TnpRMU1ESTNOalUzTWpNeU56azFPVEk1T1RJdU56azRPVFE0TkRnPTE3NDUwMjc2NTcyMzI0NDkzMzE2Mi42Nzg0NzQyNg==","aggregateFunction":"COUNT(DISTINCT","aggregateField":"student","axisId":"primary","numberFormat":{"customFormat":true,"abbreviationEnabled":true,"numberInTooltipsEnabled":true},"durationFormat":{"customFormat":false},"dateFormat":{"customFormat":false},"stringFormat":{"customFormat":false}}],"groupBy":[{"groupBy":[{"dataSource":"dGFibGV4XzE2MjAxNTFfY2xhc3NfZW5fZW5yb2xsbWVudHMxNzQ1MDI3NjU3MjMyNzk1OTI5OTIuNzk4OTQ4NDg=","groupByField":"rpt_year_of_enrollment","isRange":false,"isChoice":false,"isPaBucket":false}],"maxNumberOfGroups":12,"numberOfGroupsBasedOn":"NO_OF_GROUP_BASED_ON_PER_METRIC","showOthers":true}],"sortBy":"value","sortByOrder":"desc","showChange":false,"showChangePercentage":false,"showTarget":false,"showForecast":false,"showForecastRange":false,"showTrend":false,"showConfidenceBand":false,"showGapPercentage":false,"showSparkline":false,"showMetricLabel":false,"showThreshold":false,"showComment":false,"followFilters":true,"showFilterIcon":true,"enableRealTimeUpdate":false,"enableDrilldown":true,"enableCustomEmptyState":false,"emptyStateIllustration":"no-data","emptyStateHeading":"No data available.","emptyStateContent":"There are no scores available for the selected criteria. Contact your admin for more info.","emptyStateAlignment":"vertical-centered","showMaximumRange":false,"applyDateRange":false,"numberOfPeriods":3,"showAbsolutePeriod":false,"showChangeFrom":"previous","period":"M","dateFormat":"default","showDataTable":true,"chartVariation":"grouped","colorConfig":{"type":"default"}}</properties>
+        <requested_by/>
+        <scheduled_count>0</scheduled_count>
+        <sys_class_name>par_visualization</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-19 01:25:20</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>326fa9c4251a4c2983d7e77396e497a0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Student Enrollments by Year</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>par_visualization_326fa9c4251a4c2983d7e77396e497a0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-19 01:54:17</sys_updated_on>
+        <type>Horizontal bar</type>
+    </par_visualization>
+</record_update>

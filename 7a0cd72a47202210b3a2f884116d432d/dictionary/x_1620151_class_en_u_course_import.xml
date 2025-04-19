@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="a83572488345e210b11359d0deaad307" extends="sys_import_set_row" label="Course Excel Upload" max_length="40" name="x_1620151_class_en_u_course_import" type="collection">
+        <element attributes="import_attribute_name=Units" label="Units" max_length="40" name="u_units" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Description" label="Description" max_length="40" name="u_description" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Course ID" label="Course ID" max_length="40" name="u_course_id" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Course Name" label="Course Name" max_length="40" name="u_course_name" type="string"/>
+    </element>
+</database>

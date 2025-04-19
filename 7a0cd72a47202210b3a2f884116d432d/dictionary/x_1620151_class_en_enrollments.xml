@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="5baf62a0c3f4a210785d9e1d050131a3" label="Enrollments" max_length="40" name="x_1620151_class_en_enrollments" type="collection">
         <element label="Course ID" max_length="32" name="course_id" reference="x_1620151_class_en_courses" type="reference"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element label="Student" max_length="32" name="student" reference="sys_user" type="reference"/>
         <element choice="3" default="not_enrolled" label="State" max_length="40" name="state" read_only="true" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Not Enrolled" sequence="300" value="not_enrolled"/>
-                <element inactive_on_update="false" label="Enrolled" sequence="100" value="enrolled"/>
                 <element inactive_on_update="false" label="Pending" sequence="200" value="pending"/>
+                <element inactive_on_update="false" label="Enrolled" sequence="100" value="enrolled"/>
+                <element inactive_on_update="false" label="Not Enrolled" sequence="300" value="not_enrolled"/>
             </choice>
         </element>
-        <element label="Section" max_length="32" name="section" reference="x_1620151_class_en_classes" reference_qual="javascript: 'courses=' + current.course_id&#13;&#10;" type="reference" use_reference_qualifier="advanced"/>
+        <element active="false" attributes="edge_encryption_enabled=true" function_definition="glidefunction:substring(sys_created_by, '1', '5')" function_field="true" label="tesr" max_length="255" name="rpt_tesr" type="string"/>
+        <element label="Section" max_length="32" name="section" reference="x_1620151_class_en_classes" reference_qual="javascript: 'courses=' + current.course_id" type="reference" use_reference_qualifier="advanced"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" function_definition="glidefunction:substring(sys_created_on, '1', '4')" function_field="true" label="Year of Enrollment" max_length="255" name="rpt_year_of_enrollment" type="string"/>
+        <element label="Student" max_length="32" name="student" reference="sys_user" type="reference"/>
+        <element active="false" function_definition="glidefunction:substring(sys_created_on,'0','4')" function_field="true" label="Year" max_length="40" name="rpt_year" type="integer"/>
         <index name="index">
             <element name="course_id"/>
         </index>

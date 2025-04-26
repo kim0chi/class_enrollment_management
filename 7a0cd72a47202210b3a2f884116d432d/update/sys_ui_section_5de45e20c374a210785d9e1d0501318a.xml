@@ -3,112 +3,126 @@
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>number_code</element>
             <position>0</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>43d4c1b5c3742210e53fd075e401310a</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>df43b0db474da610b3a2f884116d4318</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>course_name</element>
             <position>1</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>4bd4c1b5c3742210e53fd075e401310a</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>5743b0db474da610b3a2f884116d4319</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>section</element>
             <position>2</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>43d4c1b5c3742210e53fd075e401310b</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>db43b0db474da610b3a2f884116d4319</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
             <position>3</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>4bd4c1b5c3742210e53fd075e401310b</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>5343b0db474da610b3a2f884116d431a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>scheduled_time</element>
+            <element>teacher</element>
             <position>4</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>43d4c1b5c3742210e53fd075e401310c</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>d743b0db474da610b3a2f884116d431a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>status</element>
             <position>5</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>4bd4c1b5c3742210e53fd075e401310c</sys_id>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>5f43b0db474da610b3a2f884116d431a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>scheduled_time</element>
+            <position>6</position>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>d343b0db474da610b3a2f884116d431b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.end_split</element>
-            <position>6</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>43d4c1b5c3742210e53fd075e401310d</sys_id>
+            <position>7</position>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>5b43b0db474da610b3a2f884116d431b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>courses</element>
-            <position>7</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-04-09 19:07:19</sys_created_on>
-            <sys_id>4bd4c1b5c3742210e53fd075e401310d</sys_id>
+            <position>8</position>
+            <sys_created_by>admin.class_enrollment</sys_created_by>
+            <sys_created_on>2025-04-26 19:57:10</sys_created_on>
+            <sys_id>df43b0db474da610b3a2f884116d431b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1620151_class_en_classes" sys_domain="global" view="Default view">5de45e20c374a210785d9e1d0501318a</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-04-09 19:07:19</sys_updated_on>
+            <sys_updated_by>admin.class_enrollment</sys_updated_by>
+            <sys_updated_on>2025-04-26 19:57:10</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

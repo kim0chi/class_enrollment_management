@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
+    <sp_header_footer action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $window) {
+  var c = this;
+  
+  // Initialize variables
+  c.searchTerm = '';
+  
+  // Function to search courses
+  c.searchCourses = function() {
+    if (!c.searchTerm.trim()) return;
+    
+    // Navigate to course page with search term
+    $window.location.href = '?id=cem_courses&search=' + encodeURIComponent(c.searchTerm);
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Header Styling */
+.cem-header {
+  background-color: #2c3e50;
+  padding: 15px 0 0 0;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+
+/* Logo Styling */
+.header-logo img {
+  height: 50px;
+  width: auto;
+}
+
+/* Navigation Styling */
+.header-nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* User Section Styling */
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.user-greeting {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.user-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-initials {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Search Bar Styling */
+.search-container {
+  width: 100%;
+  padding: 0 15px 15px 15px;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-bar:focus-within {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  color: rgba(255, 255, 255, 0.7);
+  margin-left: 15px;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 15px;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+.search-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-logo {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .header-nav {
+    order: 3;
+    margin-top: 15px;
+  }
+  
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .header-user {
+    order: 2;
+    justify-content: center;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-links li {
+    margin: 5px;
+  }
+  
+  .search-button {
+    padding: 12px 15px;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem-header</id>
+        <internal>false</internal>
+        <link/>
+        <name>CEM Header</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Get current user information
+  var user = gs.getUser();
+  
+  // Set basic user information
+  data.userName = user.getDisplayName();
+  data.userInitials = '';
+  
+  // Get initials from user name
+  if (data.userName) {
+    var nameParts = data.userName.split(' ');
+    if (nameParts.length >= 2) {
+      // Get first letters of first and last name
+      data.userInitials = nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0);
+    } else if (nameParts.length == 1) {
+      // Just use first letter if only one name part
+      data.userInitials = nameParts[0].charAt(0);
+    }
+  }
+  
+  // Get user role
+  data.userRole = '';
+  if (user.hasRole('x_1620151_class_en.student_role')) {
+    data.userRole = 'student';
+  } else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+    data.userRole = 'teacher';
+  } else if (user.hasRole('x_1620151_class_en.admin_role')) {
+    data.userRole = 'admin';
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <static>false</static>
+        <sys_class_name>sp_header_footer</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 05:07:28</sys_created_on>
+        <sys_id>0ad6572447d12210b3a2f884116d431d</sys_id>
+        <sys_mod_count>56</sys_mod_count>
+        <sys_name>CEM Header</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_header_footer_0ad6572447d12210b3a2f884116d431d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 17:52:41</sys_updated_on>
+        <template><![CDATA[<div class="cem-header">
+  <div class="container">
+    <div class="header-content">
+      <!-- Logo Section -->
+      <div class="header-logo">
+        <a href="?id=cem_home">
+          <img ng-src="{{::portal.logo}}" alt="{{::portal.title}}" style="height: 60px !important; width: auto !important;">
+        </a>
+      </div>
+      
+      <!-- Navigation Links -->
+      <div class="header-nav">
+        <ul class="nav-links">
+          <li><a href="?id=cem_menu" class="active">Menu</a></li>
+          <li><a href="?id=cem_courses">Browse Courses</a></li>
+          <li><a href="?id=cem_my_enrollments">My Enrollments</a></li>
+          <li><a href="?id=cem_schedule">My Schedule</a></li>
+          <li><a href="?id=cem_help">Help & FAQs</a></li>
+        </ul>
+      </div>
+      
+      <!-- User Profile Section -->
+      <div class="header-user">
+        <div class="user-info">
+          <span class="user-greeting">Welcome,</span>
+          <span class="user-name">{{data.userName || 'User'}}</span>
+        </div>
+        <div class="user-avatar">
+          <span class="user-initials">{{data.userInitials || 'U'}}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-bar">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" placeholder="Search for courses..." ng-model="c.searchTerm" ng-keyup="$event.keyCode === 13 && c.searchCourses()">
+        <button class="search-button" ng-click="c.searchCourses()">Search</button>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_header_footer>
+</record_update>

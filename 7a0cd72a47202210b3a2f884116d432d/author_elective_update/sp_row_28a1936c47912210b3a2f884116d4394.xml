@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row">
+    <sp_row action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <semantic_tag/>
+        <sp_column/>
+        <sp_container display_value="Portal Home - Container 1">6a7ccbe047912210b3a2f884116d4324</sp_container>
+        <sys_class_name>sp_row</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 04:41:20</sys_created_on>
+        <sys_id>28a1936c47912210b3a2f884116d4394</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_row_28a1936c47912210b3a2f884116d4394</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 12:43:43</sys_updated_on>
+    </sp_row>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>d30ba5c69314aa1cd9f6ddd548373c61</instance_id>
+        <instance_name>dev299912</instance_name>
+        <name>sp_row_28a1936c47912210b3a2f884116d4394</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row"><sp_row action="INSERT_OR_UPDATE"><class_name/><order>1</order><semantic_tag/><sp_column/><sp_container display_value="Portal Home - Container 1">6a7ccbe047912210b3a2f884116d4324</sp_container><sys_class_name>sp_row</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-05-01 04:41:20</sys_created_on><sys_id>28a1936c47912210b3a2f884116d4394</sys_id><sys_mod_count>1</sys_mod_count><sys_name>1</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sp_row_28a1936c47912210b3a2f884116d4394</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-05-10 12:43:43</sys_updated_on></sp_row></record_update>]]></payload>
+        <payload_hash>-2137614125</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>ddbc9b2347012210b3a2f884116d43c0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 12:43:44</sys_created_on>
+        <sys_id>2e56dbab47ddae10b3a2f884116d43b3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196ba39104a0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 12:43:44</sys_updated_on>
+        <type>Row</type>
+        <update_guid>6256dbab9eddae10fbe2f3695cdac4b3</update_guid>
+        <update_guid_history>6256dbab9eddae10fbe2f3695cdac4b3:-2137614125,2ca1936cd0912210ef3ca94a8200e495:2119021653</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">d530a3e74711ee10b3a2f884116d43a8</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:26:48</sys_created_on>
+        <sys_db_object display_value="" name="sp_row">sp_row</sys_db_object>
+        <sys_id>30b257a7a7164f59aa13f8a8a4768e21</sys_id>
+        <sys_metadata>28a1936c47912210b3a2f884116d4394</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sp_row_28a1936c47912210b3a2f884116d4394</sys_update_name>
+        <sys_update_version display_value="sp_row_28a1936c47912210b3a2f884116d4394">2e56dbab47ddae10b3a2f884116d43b3</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:26:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

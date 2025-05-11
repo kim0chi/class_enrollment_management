@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>2</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">fba1536c47912210b3a2f884116d43be</sp_column>
+        <sp_widget display_value="breadcrumbs">0fb269305b3212000d7ec7ad31f91ae2</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 09:36:56</sys_created_on>
+        <sys_id>6245987c47192210b3a2f884116d43d5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_instance_6245987c47192210b3a2f884116d43d5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 09:36:59</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=6245987c47192210b3a2f884116d43d5"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>d30ba5c69314aa1cd9f6ddd548373c61</instance_id>
+        <instance_name>dev299912</instance_name>
+        <name>sp_instance_6245987c47192210b3a2f884116d43d5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>2</order><roles/><short_description/><size>md</size><sp_column display_value="1">fba1536c47912210b3a2f884116d43be</sp_column><sp_widget display_value="breadcrumbs">0fb269305b3212000d7ec7ad31f91ae2</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-05-01 09:36:56</sys_created_on><sys_id>6245987c47192210b3a2f884116d43d5</sys_id><sys_mod_count>1</sys_mod_count><sys_name/><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sp_instance_6245987c47192210b3a2f884116d43d5</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-05-01 09:36:59</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=6245987c47192210b3a2f884116d43d5"/></record_update>]]></payload>
+        <payload_hash>-120876906</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>ddbc9b2347012210b3a2f884116d43c0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 09:36:59</sys_created_on>
+        <sys_id>5745d87c47192210b3a2f884116d4316</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1968b34db130000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 09:36:59</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>db45d87ca2192210f39166fd662fde15</update_guid>
+        <update_guid_history>db45d87ca2192210f39166fd662fde15:-120876906,e245987cc9192210ee81c8fb8e1a34d7:-1057592491</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">dc551c3c47192210b3a2f884116d43dd</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 09:37:03</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>c98a509cb4c9439cb9069ef3f524e544</sys_id>
+        <sys_metadata>6245987c47192210b3a2f884116d43d5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sp_instance_6245987c47192210b3a2f884116d43d5</sys_update_name>
+        <sys_update_version display_value="sp_instance_6245987c47192210b3a2f884116d43d5">5745d87c47192210b3a2f884116d4316</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 09:37:03</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

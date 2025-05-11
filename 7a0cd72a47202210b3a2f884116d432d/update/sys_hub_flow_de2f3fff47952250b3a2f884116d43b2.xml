@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,viewActivatedIn=diagramming</attributes>
+        <authored_on_release_version>27000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <compiler_build/>
+        <copied_from/>
+        <copied_from_name/>
+        <description>Processes student enrollment requests and enforces business rules</description>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>course_enrollment_request_flow</internal_name>
+        <label_cache>[{"name":"{{static.822d17a247202210b3a2f884116d4323}}","label":"CEM-Administrators","reference":"sys_user_group","reference_display":"Group","type":"reference","base_type":"reference","usedInstances":{"336e9689-9e05-4ada-8f0c-10c98c4c49a7":["approval_conditions"]}},{"name":"336e9689-9e05-4ada-8f0c-10c98c4c49a7.approval_state","label":"2 - Ask For Approval➛Approval State","reference_display":"Approval State","type":"choice","base_type":"choice","choices":[{"label":"-- None --","value":"","order":0.0},{"label":"Not Yet Requested","value":"not requested","order":1.0},{"label":"Requested","value":"requested","order":2.0},{"label":"Approved","value":"approved","order":3.0},{"label":"Rejected","value":"rejected","order":4.0},{"label":"Cancelled","value":"cancelled","order":5.0},{"label":"No Longer Required","value":"not_required","order":6.0},{"label":"Skipped","value":"skipped","order":7.0}],"usedInstances":{"219d100e-16c4-44aa-8850-43ffd9c7ff9f":["condition"]},"attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}}]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <master_snapshot_digest/>
+        <name>Course Enrollment Request Flow</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 10:20:30</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>de2f3fff47952250b3a2f884116d43b2</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Course Enrollment Request Flow</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sys_hub_flow_de2f3fff47952250b3a2f884116d43b2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:07</sys_updated_on>
+        <type>flow</type>
+        <version>2</version>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_variable_value action="delete_multiple" query="document_key=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=de2f3fff47952250b3a2f884116d43b2^sys_idNOT INda2f3fff47952250b3a2f884116d43b3"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>de2f3fff47952250b3a2f884116d43b2</id>
+        <name>Course Enrollment Request Flow</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 10:20:30</sys_created_on>
+        <sys_id>da2f3fff47952250b3a2f884116d43b3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 10:20:30</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=da2f3fff47952250b3a2f884116d43b3"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=de2f3fff47952250b3a2f884116d43b2^sys_idNOT IN6866d84c47292250b3a2f884116d436c,a46690c847292250b3a2f884116d4374"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name,uiTypeLabel=Table Name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value>sc_req_item</default_value>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>40</max_length>
+        <model display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</model>
+        <model_id>de2f3fff47952250b3a2f884116d43b2</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_de2f3fff47952250b3a2f884116d43b2</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:58</sys_created_on>
+        <sys_id>6866d84c47292250b3a2f884116d436c</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:06</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=6866d84c47292250b3a2f884116d436c"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>default_search_field=number,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=reference,uiTypeLabel=Reference</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>request_item</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="Reference">reference</internal_type>
+        <label>Request Item</label>
+        <mandatory>true</mandatory>
+        <max_length>32</max_length>
+        <model display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</model>
+        <model_id>de2f3fff47952250b3a2f884116d43b2</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_de2f3fff47952250b3a2f884116d43b2</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference display_value="" name="sc_req_item">sc_req_item</reference>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:58</sys_created_on>
+        <sys_id>a46690c847292250b3a2f884116d4374</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:01:58</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=a46690c847292250b3a2f884116d4374"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=de2f3fff47952250b3a2f884116d43b2^sys_idNOT IN3866d84c47292250b3a2f884116d4384"/>
+    <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <name>Service Catalog</name>
+        <published_version/>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:58</sys_created_on>
+        <sys_id>3866d84c47292250b3a2f884116d4384</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:09:18</sys_updated_on>
+        <trigger_definition display_value="Service Catalog">c43a1011c36813002841b63b12d3ae15</trigger_definition>
+        <trigger_inputs>H4sIAAAAAAAA/61TTW/bMAz9K4FOG5CDk6zNktswoECAbgWarpdiMGSJcoTJkifJbr2g/32kPxK3M4YB3U2iyMfHx6eHIzM8A8O27LaysyvjHmc7y+ZM2wjecnPXlICP4uC0AIx3h2sdIts+HJm656aihIyLH7l3lZWYpK5HmIowtZ2dM2bvJChemfiecncFzwmBznswICJItlXcBMDItzC+fdEhaJv3gef5iIByHv5O4GXGG9p+n7OCW8mj8805ybviDorS8AinoPMSPNsukmTOaiK6b8JOdl0tL6i/r2xKDFNNstf9NHiUOiBYc3+OiIM20oNF5ZFCyT0iRMI/vnrS1OIy2SRivdys18tktUoSdZEpoYRYf1wkl4uLDQJOr36SWHzlg/Fk8BTBypFgf6rjgcsba86BAxqsm6rgT0H/QvAPCeUpwDFEP/HpmvZqDEIQi9A60Py71eopr/aDJGSmKawXrqmnzDZIQb7ou33+/wQXbya4JIKddDdl1A7Nwla0Wp4ZqglN6BbuQWBJGr3OcyzEImeqwn6d8kXPfuTSKuC2oCRH0IqH77E/uMfbYZ1X2raU+kfjBDenG4/YOasi6XdkXNYcK8jR0WOP59YV6c+KKtp/MvRK24koIQivy/hJRF3D6dP+BvLQA67rBAAA</trigger_inputs>
+        <trigger_outputs/>
+        <trigger_type>service_catalog</trigger_type>
+    </sys_hub_trigger_instance_v2>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=de2f3fff47952250b3a2f884116d43b2^sys_idNOT IN4c181ccc47292250b3a2f884116d4383,bc66d84c47292250b3a2f884116d4387,c8181ccc47292250b3a2f884116d4382,c8181ccc47292250b3a2f884116d4384,f866d84c47292250b3a2f884116d4386"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <generation_source/>
+        <order>6</order>
+        <parent_ui_id>d1988b59-49c2-4da9-a5d6-d48b23278ac7</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:09:18</sys_created_on>
+        <sys_id>4c181ccc47292250b3a2f884116d4383</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:09:18</sys_updated_on>
+        <ui_id>b6510c41-625f-4e34-aa5f-a4bf637516c4</ui_id>
+        <values>H4sIAAAAAAAA/+1UXWvbMBT9K8HPxthxEtq8DbLAHtZCN/rSFSFL14lAljxJTpOV/Pdd2XI+mjWEEhiD+cm6uh/n3HuPnl4jwaNpNAKeZrfZhOVZng/TdHgzyopJXmRDnlOALIojRStATwNMG47nFZWNN+AvF7aWdPO4t7ClkNyAiqZPz3FUU4PBDkw0fX1z5TY1EEkLkBg406ypQLnBlxnmuBRYH/3QI3uL1NfAMw/ZifBGvPJ4sjSOYO1AccByJZUW4qiiilOnzSaaOtOgwQDl90pudh5LoVzHtKJrK35h/lHq/UpAaix0YXckoUN9c7RgcF87oVVncbSQfee0bCp111HwvYWSNtId9LaxmA9qD9mD6BCW35b65aGvNxeqZRfQSs2o3J2oc0YUjQPrxwES2qZUtK6FWpDa6JVogxFKlSwkHpJS6hesacVCJZR53Ak2iCZztM9a8yM1wpP4imkweNuSJz8bX7ejEQCTlnNLmLSDQlfLjKjdJ0y8gp5QZ/MIwxzx75xfVHLSYurw2YTh0BwQUEZL6Sla0mVKdOPqxiUh73a7jYMKivG5ZWO3+906wL9Xwppkk2GajTPCJLUWSx9WP9XJ56PLj0nmuwcyuOuAXEriKPgdUkE0R7agmfHVNHPzlzQTEP1jojmVSgtut77p8OxbeTDpdmPtwepah1r50aRpzpV2YW2Bn+7s+44f3F+oML2DQVcgvphJn2AuQHL7B2r9AocCZBUK7B7+q21xNknb7//7f5X3v1vq59+JFHlWmwgAAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <generation_source/>
+        <order>2</order>
+        <parent_ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:59</sys_created_on>
+        <sys_id>bc66d84c47292250b3a2f884116d4387</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:09:18</sys_updated_on>
+        <ui_id>336e9689-9e05-4ada-8f0c-10c98c4c49a7</ui_id>
+        <values>H4sIAAAAAAAA/+1YbW/bNhD+K4Q+Jajj6MUvSvopWJCgw7YCSdYvUSDQ1MlmJ1MuScXxDP/3HUXKb0k9I3DWteiXxDzdHZ873nNH6X7u8cw79/pxHsLZWegPAt+PfD/uMj+OYBD1e/2IMt9reYKOATUlsFJmuH6kRWUE+DPjalLQ2aeVhI14kUkQ3vn9Q8ubUInGGqR3Pt96pGcTSAs6gAINL0tWjUFo8uESfewLrLG+aZBtIzV74Dpz3lNuhPjI4PFbHjxpEBngbjktFLS8MRUZ1aWceedaViiQQLOPopgtNUZcaBvomD4p/je6j0KjlwNGxlwSlsvUJajJTckZfJxoXgor0XRQNIkri2os/rARmNRCTqtCr6W2UugPJgayAWER5rejcnrT7HfFRR2cQ1uUjBbLFdVa8kGlQZnTgALqnIzpZMLFMJ3I8pHXxghl3B4WuGjnRTnFPRUfijZlBncbE0TbVyi/rMWfqOQmiN/RDRov6uDTL5XZ14bhAKd1zDZg1FJM8om+QJ+P0MRiZQacO0H8tUvPOz0l16CJHgEBIcuiqGvIGhOGh6chI1zUChMJj7ysFFEaJomQoCspSJ6ldUA2ONW2RunKm0qtu3ZZ6Uml23b13lssFi1HoQHbWalsVZg2+jdh0J1xTeryae0Na8P4OUxHn3qZCuvasSfYzR4n2Yc+sf9t6OMQfWf8eU6dGtyyFqHTi7r4p59HfhAGfgy9OGZnPmVxr9ftRKtDxv0QMS2wvqlC329SlbeYMTFsKnIPcI3hhUNHbhp0X4XtqlQ1W7kKDQ9WoUHvOy3Rit9t5cZKfts+nbepZbPdn4J/qeCDOf1eOOid+XF2kuX+4KQTR90TysA/gV7QhW7WY90gekX9b4+O7QLZY4b8Ujd9QglGV4tRj1jzRDxSSRjGWZTDlGsYk6TCdpotJwfmcDgE2WaVxPPR762F0pUB3SivO8ARgilRuvkPWZqXsm3q2xmzspIK8MRfNH90WcZhVettGJnqaqwSL/HwYSIwxDs5I7okQzctrTIxe65bX980tgKm5Nocu71bHRlx2H9Kg17oB90gZQVVCsdkag2VfX6M2/GcHDXe2rjf0TKa42MyTwR5Aem6/uVa6zkyDhcmBDeuE6xZl1iPvFtm+Z1Zjqgiy5Su3we4sNqrfTfGtx/smpNZ/ELvyTkUb3QTvjKuN+b4Hviedc0rB/BrwF3PrJdbk/1wfTP2/W/UOH/kq/HWWe7R3m61OT68ETempDYl2HWeX5tXVKsZrTR2RvtzgzRsZ1HC2j3jM7JO/Nec2QNeY/yrxbdNmW3YOxgT/WTM/5oxm0e5B2FsPU1HmIYVZzCO+n2QTHlRkAHg8CklbPNlWsq/UlHqZiJukKbT3VmV8ELDZqXIeP1qukYd2+ZB3cBnYFpdiNn1/XxuqMpZOw7DLOjTsNMP/RAv2YOIhnkcd4Kgl3WiMFosHp5T7wAeX0fd1T2/whtNQ989ErX89uPsdibOkXd1NXRGjsCdQ30K+nb8/THfZtnOOsjPVueeVWCu4+sfV+aJZ0Em3nniiVJA4rUSz2ilpiBqMWoguOWDWjafLxZWUknqHARry5V1Rmeq1lRsBBkWVS3dkNhKd/LFIV+t3QbkEnGf3vG14ffvWVt+d62s/YuJbF6sm0hs5vj66OsebPR1fhJn69U5bdqVmXTYgl7Npod/AOwknsnsFwAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Update Record">f9d01dd2c31332002841b63b12d3aea1</action_type>
+        <action_type_parent display_value="Update Record">baf174c8c3c232002841b63b12d3aee4</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <generation_source/>
+        <order>4</order>
+        <parent_ui_id>219d100e-16c4-44aa-8850-43ffd9c7ff9f</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:09:18</sys_created_on>
+        <sys_id>c8181ccc47292250b3a2f884116d4382</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:09:18</sys_updated_on>
+        <ui_id>f64015bf-dd84-49fe-b4e8-64ae4eaa9226</ui_id>
+        <values>H4sIAAAAAAAA/+1UXWvbMBT9K0HPxthxEtq8DbLAHtZCN/rSFSFb14lAlj1JTpOV/PddyXI+mi6EEhiD+cm6uh/n3HuPnl6J4GRKRsCT9DadFFmaZcMkGd6M0nyS5emQZwwgJRFRrAL01FDUmuN5xWTrDPjLhWkk2zzuLcVSSK5BkenTc0QapjHYgibT1zdXdtMAlSwHiYGzumgrUHbwZYY5LgXWRz/0yN4idTXwzEN2KpwRrxyeNIkIrC0oDliuZNJARCqmOLO13pCp1S0aNDB+r+Rm57EUynZMK7Y24hfmHyXOrwSkVoQu7I40dKhvTi0KuG+sqFVnsSyXfedq2VbqrqPgegsla6U96G1rMB80DrID0SEsvy3rl4e+3lwozy6glXXB5O7ErNUiby0YNw6Q4JtSsaYRakEbXa+ED0YoVbyQeIhLWb9gTSMWKmaFwx1jg1g8R/vMmx+ZFo7EV0yDwVtPnv5sXd2ORgBMPWdPmPpBoasptGjsJ0y8gp5QZ3MIwxzx75wfKTn1mDp8Ji5waBYoKF1L6Sga2mWK69Y2rY1D3u12GwUV5ONzy1bc7nfrAP9eCWuaToZJOk5pIZkxWPqw+qlOPh9dfkwy3x2QwV0H5FISR8F/IBVEc2QLmhlfTTM3f0kzAdE/JppTqXhwu/VNhmffyoNJ+401B6trLGrlR5skGe9WFvjpvr7v9MG9hQpTWxh0yaOLGfQJ5gIkN+9Q6hc3FKCrUGD34F9te9NJ4r//7/5V3v1umZ9/A2pOU1yTCAAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Send Notification">0d8dd9f10f11101051218e8ebc767e27</action_type>
+        <action_type_parent display_value="Send Notification">7eda5d710f11101051218e8ebc767ec1</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <generation_source/>
+        <order>7</order>
+        <parent_ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:09:18</sys_created_on>
+        <sys_id>c8181ccc47292250b3a2f884116d4384</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:07</sys_updated_on>
+        <ui_id>35573201-f510-4550-bc25-2d94dc6fe6c6</ui_id>
+        <values>H4sIAAAAAAAA/8VWbW/bNhD+K5w+JZil6sWOFe/DUDRrUGBNgTTtMMSBQIknm60kqiKVlwX57ztSlG0ldlJkTfdNPPKeu3vuHpHntw5nzswZs5ixwzzw8yAI/MCfBGEQQwxpNj2YQhg7I6eiJeDJBjLRMFxf0qLVBvxkXNYFvfm8tmRLXrAGKmd2fjFyatqgs4LGmd3e21I3NSQFTaFAxyORtSVUirw7QozvTaz3Pu0zu5+pjoFrZtETro24pfMJRg5cK6gYYLScFhJGTkkrRpVoblaWBij7UBVrw5JXqqu0pNeS/4P4UajP5YClZZaF1TKxDPXkCJ7Bh1pxUXUWRdOiZ04UbVmddCVobiGnbaE2uG0l4kGtc9ZJqKbFhPKPS3F12sd7yytTnc22EBktViuqVMPTVoHU7Wj52TZ6OvOfWxsDBZiDJa1rXi2SuhGX3MTD7EtvUeDCywtxhWlKvqg8mulSPSSVem/RfmTMn2nDdd3vEQaddcxPFf/WwjvdeBb40+jQz9xpOIncsZ9RN41Z6tI0zCfj8UF8kAbOneE4+dbq8jq2LC+Jodbwmph5wKMya3itXmMyl9Dz1tk0EXZc8Ouxc86rV+STBKKWQKBqRFEYXjpncgUkw1lRwOZVA6ptKpKzxNTdcSC9bj9Z+8qkc/ZEq+pWed3qN+fu7m5k1RkHj4kgCtczv1Hwiyj0TOOTkw7/e3MbOO/I1Wp0YLMSDX+YRGP//5Gozei/a3RAz1Cig878FIVmaZrmKRy6QZpl7ngKsRuHdOrCxM+iPIx8f5o/qdCHujQMrEZ//Ph4bVxMlVA85xk1LXuR4V+1bnU5PZ1c73syzG57zlYEzUYcq4HocQ10/6jn3FLyRsKl7gaUlBdJNwc7dHGvht0a2QU6EA7Nc8jwT5nkHAqG05AYn59w5Q1YR1Eh2gM5bfb65dR09rDhElRiCTAXR5KLpqS6jaaW+yIcHwYwjcLYPTwIUYQQTdyURZEboCgBKOQh+7HX5JC8py/LN+a+I5RkrVSiJJv+JKUSGMEPpARJpQWRCk/Pq0va9HfqvPX9iD37Hu2wevyPGn4XJJVfNdtJf9jrPxKTlYWSqtXM4SOg6YFsYLtjz2WibSToYe+PzZ25g5vzCmk5BmVPEM37psvxae9QwRU51tPVPW33tDmcXifBQegHkyDJCiolUpB0jrLb38cYPCd7PZq3ALVnU+xs+MTb3ye384psyXLT7Wjjz7mnce9s+rarg2aK9AsKuqtksGGBTTzMg9dct2tGzjeovBjpXdkajBlS9aYj54/1G2vukF/J3rZOrvh9bTbx9eWQ34dLDXkKX8wfZ+7sI9LcmXWQawpMDiVISRcw2zozOyKhG0HjsRCmafIX8jeCDh+IqFipCM7X/agmF7KkkqQAvRSAeTrrHvkvQIQFPimJEoRX+p9AbkSLz1Cq9MczYzWWEYyFvTWzaZ+tV6L5qn9pHmqZqmxZU+atQ5yu36gX/wJVZXZ7Qw4AAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Create Record">2de05916c31332002841b63b12d3aee1</action_type>
+        <action_type_parent display_value="Create Record">02f0b88cc3c632002841b63b12d3aeff</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:59</sys_created_on>
+        <sys_id>f866d84c47292250b3a2f884116d4386</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:01:59</sys_updated_on>
+        <ui_id>a5cc25a3-5d37-4e08-8d1d-dc07bfcb42a8</ui_id>
+        <values>H4sIAAAAAAAA/9VWS4/bNhD+K6xOG0BVJDtxE+0pSLpFDk2A3SCXbCrQ4sgmQpMKSdnrLPzfO3xIfm+2QdCihg/mPL/5OJzxp/uEs6RMJgXkz18Wk3pcjMejPB+9eFZMJ+NpMWJjCvAsSRNJF4CWlk4FVP6QJksqOie8q4rJKC+eF1UtqDEVSPxqJcQCpDVoyLhpBV1/jPa/7ynrORdMg0zKT5/TpKUag1vQSXl/oLLrFipBpyAwxgcHhLwLQB5bxJ7zmaJclkOZ0swBytME7ixIBpivocJAmiyoZNQqvU5KqzsUaKDsvRTrwWLOpcWAibO9M/wbRn+RO7sGsLQagm44VpGsIK7nitfwvrVcySDxwKJSiW4h34UiHM3Q0E7YnmaUdAbjQesgOxARUXMzV6vrPuEVl766qBSqpmI4UWs1n3YWjLsPEOBurVrQtuVyVrVaLbl3RiyLbCbwkDVCrTCp4TOZ0doBz5Ahml2h/I0Xf6Sauyr+xDDovPHVV187lzfUERFXoWg0MLXmrX2F4ZYwgAtCB2zntvD0oHFy0XTSwyJwBzWWdsFl21mTEtVZ9+MJub+VhDx9Sv4ASxx20mi1IHYOpMaTUDPCLSyIhq8dGOuMl1T3x7dOddvl+ZiREDmrO41U28ve0iCRtQX2WnXaQG+8458tI0Xo622OXG8g1PCgrwlGlwcIgV0pfcoz/s4Gu6pRGr0jHa/nUH8hvCErcM6j3zSQldJfsBXIitu5ZyjWtH3j5DpE2+PORcRAF7vZUV85XebukfwS8YVMZ6MGdbwy0l9hbLzKWGo7Q/ZC+fvhhkhlCT0PNxhfhrAabKcDj5uBjmsv9EX7/iM4CkjDQTDiJ6MhyJ5XS1hhiBrHiHMNwXrEGOjDEMEqUuMAseDdggs2UbD0JmWs4uGZG2zS4LeX5zwy72JCASb4BOOyh0qIsZ17l+VeJ6W9NrRqxVl50OGDRWzI8rCNtwZ4YUONQ5K9cnwprxhDutdEYRE6YiZrTBaJdK5cgxnirk0VmGXVdF1+v+szHJ3aT5QQYuPvHjtg8+RoXlwmm80m7Xcpg/zl2TVUTLdrJ7C7s0cju6FbG/ZrGFnA/hqIPVZFRk8oHJNH4uNl/O8k/cElDwuEiq8hgE0fzXAf4Mo3xgnK+y0fE1TLmCBu+uJnbfpikvvPf7PvA87/2brf2eVHiz8UtN37Q48er/1902R/XvfjJ46sM/t9WKS3Ms7shlW+OGRpNgPdL/bjdY1lGboENtyNKyW8tH8INU4lt2N3nqqb1G5Ckbdvvgvu9FY/iTC86x8lM7r/RDb7PzCn6cSH+xioN/gvjktuORVhv7g1u90tPZrbZCtLTmTcbD7/DbVWaxswDQAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=de2f3fff47952250b3a2f884116d43b2^sys_idNOT INb866d84c47292250b3a2f884116d4388,bc66d84c47292250b3a2f884116d4385,c4181ccc47292250b3a2f884116d4381,c4181ccc47292250b3a2f884116d4383"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">7466d84c47292250b3a2f884116d4388</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Top Level Catch">35d60003e6022010a5e40cdd1254dd23</logic_definition>
+        <order>8</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:59</sys_created_on>
+        <sys_id>b866d84c47292250b3a2f884116d4388</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:07</sys_updated_on>
+        <ui_id>445d4550-403b-42a2-a76c-f445aad48e14</ui_id>
+        <values>H4sIAAAAAAAA/+1YX0/bSBD/KieLR8g5kJCQNwSNxOkA6ZLyckHWZncctrfxuvY6QFG/+83srh3bgbbQlJdGiix7Zjx/fzOzzlOgC5MWJp/q0zyXiyQY/Xu7H8iEaHj/FCRsCcEoiKLcMFPkURTsByumCiI+zYIVZLnUySwYzYJuJ5wF+7OA62Wq4OF6/gm4mfA7WDLko/BY6ftzIDOQjcbnp2fTi+uryfR0+nHiBLgWYFVdJAYWkHl1Ajp7sQQlophxMLkTnkgyc8nSMRHta0+z2Swo5PQxhb/ZHBQ9juhS6puRRrxkwESkE/VYScRM5VDx72RiKlZFdZorumwpFRCzQpnIpmfzbdXw6IxCLVmMG0xiBFmms8hVpBI0WbEWXLJEMKOzl/zWmXAOWV639t5DpCBZmLuK2Qvp+hV/mOMl5DlbuNxPTCaThU29J/9s9r3GrSY/b+p8Ve4vfbS/OP2H305/WBWAKvCN3ujsGYz8h7L/qjSc2rD/mNjG3n4yCvkxkZ8LuBDroJmI54M5PzgRx4OD3slQHAyHIjwYimN+JPrDXgyiVfAmktxMqUS4jmxqaEhVMq3BUsqCgiUkJlqyNEXkRGmmV7JeLhxbnYVCUifGWkTCFqPj0tHBSFlnXaMblkk2txVI3zJWkkKp51Ctm/G9op2P+y1ANaZwY7zi3R5flTcWPJ/YinUUSxadWvfvrSzP61uPiDe8TwpywJwp+YVRQsc6WzIH3L8m11cog3tFyDxV7PFmt17oslsvu/WyWy+79bJbL1taL/xOKpFBYr9rpMANg0T/fUO+175smtL4RZTzTKaGIL1Cvk17SURH0YENjT6gn1GKIinLUJ2BDAnNAOzMtP2JKCFuDdBozK8ktPlMxyGfeg1nc92577jT9r6Q525fk1nUICuLtmnUhiNlgkrOmct5swKmrcyCNBh19wN4MJAIEJVv1YioKNQh19ggFYFawllFUOfyC+ruhSQXAwbCfeTVY+SPIGW1tORwnVL+HMVQV3qmVsUyuXLO0+HFzcabdT495bx5qkFGkaMhSCkY8s67Gk/u9P0/pSdjmdi4PVNpzlT1xAy2wbwwkLvCoP/R54IEnF2vOnJuEzi/gxbXVu8Ilrw02MBK5UYbKpdVM210l2kp9Hg53CJewt8OMbetwrgxXxYmjAeHrM8O+/Pu0WHYDefHXWB4czQYdvmgd1Ir3AcCkj8DrKvX+DfJF1CXJsqGp6xvqYTD9yvhdivl27SenmbjVoWpn1WQ3jylIP+l84mdvG89mQQ/MHuemxQ0kbyjkJA6UVuT3c0vQTt/2iPlpdXYxu4UX/5zTGZL/AoxCLvDAedHx0D47ff7R/NBL2SiFwoheA2/a/c2/PW4nWutgCW/Brjvs6tin5znx0/Jffet9SxybgkoDoO5K7YALulPginRLsp/ronxiDWTvE6619l/BPI17ev/kxbKIQMXAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">7866d84c47292250b3a2f884116d4385</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Top Level Try">e9060aa2c3013010ace8b740ad40dd51</logic_definition>
+        <order>0</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:59</sys_created_on>
+        <sys_id>bc66d84c47292250b3a2f884116d4385</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:06</sys_updated_on>
+        <ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</ui_id>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">80181ccc47292250b3a2f884116d4381</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>3</order>
+        <outputs_assigned/>
+        <parent_ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:09:18</sys_created_on>
+        <sys_id>c4181ccc47292250b3a2f884116d4381</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:06</sys_updated_on>
+        <ui_id>219d100e-16c4-44aa-8850-43ffd9c7ff9f</ui_id>
+        <values>H4sIAAAAAAAA/+1Uy27bMBD8lUJnWaAky7V8C1oEKNA2QBPk0gbCilzZRClRJSknruF/71IP22gctChy7E0candnRrPaB7pzbefsnb6yVq6bYPX1IQxk4zF63gcN1BisAq4bIZ3UTdEDYbAF1fkLehTStgp29yeEb6QSBsduLRiqcWiC1f63K7drsVBQoqLCW2dks6ZyKehUMajinMc8TRZpwliynMflIi3jRKSAkNJ7U+G7idybjz0SvsjazyPcTpO0EZ5WzMIAnxw2Aml0BcpiGNTQCHDa7I6IQRA3jToBG9m4QXENT1b+pN5JlvkXKySNfLTjeCxGqyaXtOR403qCA+KgVJOFWnV183nQ4U3GCjrlzkzuLPXD1pP2LEZK1e1GP36ZBl7Lphc4XirNQR1P4MiGsnNo/YdBhTU1KmpoWzKnaI3eyr6YuNTRWtEhqpR+pKE+KRFwTzwijyC6Jvx9D9+DkV7FJ2pDxQPNEqzkRZ8qaucMSTj0thQ/Ok9oEDhKKQY36AXLjWzdFc3Z4sj6ED6P5Fka9/s0XWC+WOazHFk2m4OA2bJifBYzni/5nM9zeBsRN1IHqrAOHB4O3zrGUjGglIBnkX6ttq+xFzlkVRaz7PJezBeX9uLCRry8DMkflsF/vr/cBcbY/2U4XwZpiyHUo7Z++D/vwoMP/jDBDrkRyKUlInce+zD9xf3FjgIg+Tn0qM13L+GEHX4BtIsUMQ8GAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">80181ccc47292250b3a2f884116d4383</block>
+        <comment/>
+        <connected_to>219d100e-16c4-44aa-8850-43ffd9c7ff9f</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Course Enrollment Request Flow">de2f3fff47952250b3a2f884116d43b2</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>5</order>
+        <outputs_assigned/>
+        <parent_ui_id>357a101c-28c4-47cf-9e79-1106b0ea6d47</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:09:18</sys_created_on>
+        <sys_id>c4181ccc47292250b3a2f884116d4383</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:17:07</sys_updated_on>
+        <ui_id>d1988b59-49c2-4da9-a5d6-d48b23278ac7</ui_id>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>request_item</element>
+        <help/>
+        <hint/>
+        <label>Request Item</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_de2f3fff47952250b3a2f884116d43b2</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:58</sys_created_on>
+        <sys_id>2c66d84c47292250b3a2f884116d436b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:01:58</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_de2f3fff47952250b3a2f884116d43b2</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:01:58</sys_created_on>
+        <sys_id>f066d84c47292250b3a2f884116d4370</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:01:58</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=de2f3fff47952250b3a2f884116d43b2"/>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=de2f3fff47952250b3a2f884116d43b2"/>
+</record_update>

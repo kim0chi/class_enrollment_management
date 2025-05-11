@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables>/* Remove default body margin */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix header and main content connection */
+.navbar, header {
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+.container-fluid, .sp-page-row {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Ensure continuous background */
+#cem-header {
+  background-color: #2c3e50; /* Same as your header */
+  margin-bottom: 0;
+}
+
+.cem-hero-section {
+  margin-top: 0;
+  padding-top: 60px; /* Adjust as needed */
+}</css_variables>
+        <footer/>
+        <footer_fixed>false</footer_fixed>
+        <header display_value="CEM Header">0ad6572447d12210b3a2f884116d431d</header>
+        <name>CEM Theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 06:00:00</sys_created_on>
+        <sys_id>fe7363e847d12210b3a2f884116d4363</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>CEM Theme</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_theme_fe7363e847d12210b3a2f884116d4363</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 16:33:09</sys_updated_on>
+        <turn_off_scss_compilation>false</turn_off_scss_compilation>
+    </sp_theme>
+</record_update>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Portal Home - Container 2</name>
+        <order>2</order>
+        <semantic_tag/>
+        <sp_page display_value="cem_home">585f0104475d6210b3a2f884116d4355</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 04:43:17</sys_created_on>
+        <sys_id>c1129b6c47912210b3a2f884116d43be</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Portal Home - Container 2</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_container_c1129b6c47912210b3a2f884116d43be</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 04:43:17</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>d30ba5c69314aa1cd9f6ddd548373c61</instance_id>
+        <instance_name>dev299912</instance_name>
+        <name>sp_container_c1129b6c47912210b3a2f884116d43be</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>Portal Home - Container 2</name><order>2</order><semantic_tag/><sp_page display_value="cem_home">585f0104475d6210b3a2f884116d4355</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-05-01 04:43:17</sys_created_on><sys_id>c1129b6c47912210b3a2f884116d43be</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Portal Home - Container 2</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sp_container_c1129b6c47912210b3a2f884116d43be</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-05-01 04:43:17</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>388073513</payload_hash>
+        <record_name>Portal Home - Container 2</record_name>
+        <reverted_from/>
+        <source>ddbc9b2347012210b3a2f884116d43c0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 04:43:17</sys_created_on>
+        <sys_id>c1129b6c47912210b3a2f884116d43c0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1968a27f8270000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 04:43:17</sys_updated_on>
+        <type>Container</type>
+        <update_guid>c5129b6c75912210b7d282f90f14cbbf</update_guid>
+        <update_guid_history>c5129b6c75912210b7d282f90f14cbbf:388073513</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Portal Home - Container 2">9a96dcbc47192210b3a2f884116d43cd</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 09:42:40</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>61b8841eb7d24e128f8ff9c387016941</sys_id>
+        <sys_metadata>c1129b6c47912210b3a2f884116d43be</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Portal Home - Container 2</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sp_container_c1129b6c47912210b3a2f884116d43be</sys_update_name>
+        <sys_update_version display_value="sp_container_c1129b6c47912210b3a2f884116d43be">c1129b6c47912210b3a2f884116d43c0</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 09:42:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

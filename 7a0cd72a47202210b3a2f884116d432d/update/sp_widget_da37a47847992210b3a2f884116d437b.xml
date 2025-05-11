@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+  // c.data.enrollments is now available for the template
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.my-enrollments-widget {
+  margin: 1rem 0;
+
+  h3 {
+    margin-bottom: 0.5rem;
+    color: #295e8c;
+  }
+
+  table {
+    width: 100%;
+    th, td {
+      padding: 0.5rem;
+    }
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_my-enrollments-table</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>My Enrollments Table</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Initialize data
+  data.enrollments = [];
+  var tbl = 'x_1620151_class_en_enrollments';
+  
+  // Add debugging
+  gs.info("Enrollment Widget - Table: " + tbl);
+  gs.info("Enrollment Widget - Current User: " + gs.getUserID());
+  
+  // Validate table
+  var gr = new GlideRecord(tbl);
+  if (!gr.isValid()) {
+    gs.error('Enrollment widget: table not found → ' + tbl);
+    return;
+  }
+  
+  // Add user query
+  gr.addQuery('student', gs.getUserID()); // Or try 'u_student' if that's the actual field name
+  gr.orderByDesc('number');
+  gr.query();
+  
+  // Debug record count
+  var count = 0;
+  
+  // Log the first record's field names to verify they exist
+  var fieldsLogged = false;
+  
+  while (gr.next()) {
+    count++;
+    
+    // Log field names from the first record only
+    if (!fieldsLogged) {
+      gs.info("First enrollment record - number exists: " + (typeof gr.getValue('number') !== 'undefined'));
+      gs.info("First enrollment record - course_id exists: " + (typeof gr.getValue('course_id') !== 'undefined'));
+      gs.info("First enrollment record - section exists: " + (typeof gr.getValue('section') !== 'undefined'));
+      gs.info("First enrollment record - state exists: " + (typeof gr.getValue('state') !== 'undefined'));
+      fieldsLogged = true;
+    }
+    
+    // Try with different field name possibilities
+    data.enrollments.push({
+      number: gr.getValue('number') || gr.getValue('u_number'),
+      course: gr.getDisplayValue('course_id') || gr.getDisplayValue('u_course_id'),
+      section: gr.getDisplayValue('section') || gr.getDisplayValue('u_section'),
+      state: gr.getDisplayValue('state') || gr.getDisplayValue('u_state')
+    });
+  }
+  
+  gs.info("Enrollment Widget - Records found: " + count);
+  data.enrollmentsCount = data.enrollments.length;
+  gs.info("Enrollment Widget - Enrollments pushed: " + data.enrollmentsCount);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 10:55:17</sys_created_on>
+        <sys_id>da37a47847992210b3a2f884116d437b</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>My Enrollments Table</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_da37a47847992210b3a2f884116d437b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 12:21:52</sys_updated_on>
+        <template><![CDATA[<div class="my-enrollments-widget">
+  <h3>My Enrollments</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Course</th>
+        <th>Section</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="e in c.data.enrollments">
+        <td>{{e.number}}</td>
+        <td>{{e.course}}</td>
+        <td>{{e.section}}</td>
+        <td>{{e.state}}</td>
+      </tr>
+      <tr ng-if="!c.data.enrollments.length">
+        <td colspan="4" class="text-center">No enrollments found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>da37a47847992210b3a2f884116d437b</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 10:55:17</sys_created_on>
+        <sys_id>da37a47847992210b3a2f884116d437e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 10:55:17</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

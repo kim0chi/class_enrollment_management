@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  var c = this;
+  
+  // Function to get current date and time formatted nicely
+  c.getCurrentDateTime = function() {
+    var now = new Date();
+    var options = { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return now.toLocaleDateString('en-US', options);
+  };
+  
+  // Update time every minute
+  var timeUpdateInterval = setInterval(function() {
+    $scope.$apply(function() {
+      // This forces the time display to update
+      var dummy = c.getCurrentDateTime();
+    });
+  }, 60000);
+  
+  // Clean up interval when widget is destroyed
+  $scope.$on('$destroy', function() {
+    clearInterval(timeUpdateInterval);
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.user-greeting-widget {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+.greeting-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+/* Role-specific color schemes */
+.greeting-header.role-student {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.greeting-header.role-teacher {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+.greeting-header.role-administrator {
+  background: linear-gradient(135deg, #8e44ad, #9b59b6);
+}
+
+.greeting-header.role-guest {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+.user-icon {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.user-icon i {
+  font-size: 28px;
+}
+
+.greeting-content {
+  flex: 1;
+}
+
+.greeting-text {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.role-label {
+  margin-top: 5px;
+}
+
+.role-badge {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+}
+
+.welcome-text {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  line-height: 1.5;
+}
+
+.quick-links-section {
+  padding: 20px;
+}
+
+.quick-links-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quick-link-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.quick-link-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.quick-link-item i {
+  margin-right: 8px;
+}
+
+.current-date-time {
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-size: 12px;
+  border-top: 1px solid #eee;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_user_greeting</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM User Greeting</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Get current user
+  var user = gs.getUser();
+  data.user = {
+    firstName: user.getFirstName(),
+    lastName: user.getLastName(),
+    fullName: user.getFirstName() + ' ' + user.getLastName(),
+    userName: user.getName()
+  };
+  
+  // Set role-based information
+  data.role = "";
+  data.roleIcon = "";
+  data.welcomeText = "";
+  data.quickLinks = [];
+  
+  // Determine user role - adjust role names as needed for your instance
+  if (user.hasRole('x_1620151_class_en.student_role')) {
+    data.role = "Student";
+    data.roleIcon = "fa-user-graduate";
+    data.welcomeText = "Welcome to the Class Enrollment Management Portal. Here you can browse available courses, manage your enrollments, and track your academic progress.";
+    data.quickLinks = [
+      { label: "Browse Courses", icon: "fa-book", url: "#" },
+      { label: "My Enrollments", icon: "fa-clipboard-list", url: "#" },
+      { label: "My Schedule", icon: "fa-calendar-alt", url: "#" }
+    ];
+  } 
+  else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+    data.role = "Teacher";
+    data.roleIcon = "fa-chalkboard-teacher";
+    data.welcomeText = "Welcome to the Class Enrollment Management Portal. Here you can view your assigned classes, manage your students, and access teaching resources.";
+    data.quickLinks = [
+      { label: "My Classes", icon: "fa-chalkboard", url: "#" },
+      { label: "Student Roster", icon: "fa-users", url: "#" },
+      { label: "Unassigned Classes", icon: "fa-clipboard-check", url: "#" }
+    ];
+  } 
+  else if (user.hasRole('x_1620151_class_en.admin_role')) {
+    data.role = "Administrator";
+    data.roleIcon = "fa-user-shield";
+    data.welcomeText = "Welcome to the Class Enrollment Management Portal. Here you can manage courses, classes, enrollments, and generate reports.";
+    data.quickLinks = [
+      { label: "Manage Courses", icon: "fa-book-open", url: "#" },
+      { label: "Pending Approvals", icon: "fa-tasks", url: "#" },
+      { label: "Assign Teachers", icon: "fa-user-plus", url: "#" },
+      { label: "Reports", icon: "fa-chart-bar", url: "#" }
+    ];
+  } 
+  else {
+    // Default role if none of the above
+    data.role = "Guest";
+    data.roleIcon = "fa-user";
+    data.welcomeText = "Welcome to the Class Enrollment Management Portal. Please contact your administrator if you need access.";
+    data.quickLinks = [
+      { label: "Contact Support", icon: "fa-question-circle", url: "#" }
+    ];
+  }
+  
+  // Get current date/time for greeting
+  var now = new GlideDateTime();
+  var hour = now.getLocalTime().getHourOfDayLocalTime();
+  
+  if (hour < 12) {
+    data.greeting = "Good morning";
+  } else if (hour < 18) {
+    data.greeting = "Good afternoon";
+  } else {
+    data.greeting = "Good evening";
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:46:05</sys_created_on>
+        <sys_id>00a4efeb4711ee10b3a2f884116d43d1</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>CEM User Greeting</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_00a4efeb4711ee10b3a2f884116d43d1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:49:54</sys_updated_on>
+        <template><![CDATA[<div class="user-greeting-widget">
+  <div class="greeting-header" ng-class="'role-' + c.data.role.toLowerCase()">
+    <div class="user-icon">
+      <i class="fa {{c.data.roleIcon}}"></i>
+    </div>
+    <div class="greeting-content">
+      <h2 class="greeting-text">
+        {{c.data.greeting}}, {{c.data.user.firstName}}!
+      </h2>
+      <div class="role-label">
+        <span class="badge role-badge">{{c.data.role}}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="welcome-text">
+    {{c.data.welcomeText}}
+  </div>
+  
+  <div class="quick-links-section">
+    <h4>Quick Links</h4>
+    <div class="quick-links">
+      <a ng-repeat="link in c.data.quickLinks" 
+         href="{{link.url}}" 
+         class="quick-link-item">
+        <i class="fa {{link.icon}}"></i>
+        <span>{{link.label}}</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="current-date-time">
+    <i class="fa fa-clock"></i> {{c.getCurrentDateTime()}}
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>00a4efeb4711ee10b3a2f884116d43d1</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:46:05</sys_created_on>
+        <sys_id>08a4efeb4711ee10b3a2f884116d43d3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:46:05</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

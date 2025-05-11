@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $http) {
+  var c = this;
+  
+  // Initialize variables
+  c.loading = true;
+  c.processing = false;
+  c.showApprovalDialog = false;
+  c.selectedEnrollment = null;
+  c.approvalAction = "";
+  c.approvalComments = "";
+  
+  // Pagination
+  c.currentPage = 1;
+  c.itemsPerPage = 10;
+  c.totalPages = 1;
+  c.pages = [1];
+  
+  // Load data when widget loads
+  c.server.refresh().then(function() {
+    c.loading = false;
+    setupPagination();
+  });
+  
+  // Setup pagination
+  function setupPagination() {
+    if (c.data.pendingEnrollments) {
+      c.totalPages = Math.ceil(c.data.pendingEnrollments.length / c.itemsPerPage);
+      c.pages = [];
+      for (var i = 1; i <= c.totalPages; i++) {
+        c.pages.push(i);
+      }
+    }
+  }
+  
+  // Change page
+  c.changePage = function(page) {
+    if (page >= 1 && page <= c.totalPages) {
+      c.currentPage = page;
+    }
+  };
+  
+  // Function to handle approval
+  c.approve = function(enrollment) {
+    c.selectedEnrollment = enrollment;
+    c.approvalAction = "Approve";
+    c.approvalComments = "";
+    c.showApprovalDialog = true;
+  };
+  
+  // Function to handle rejection
+  c.reject = function(enrollment) {
+    c.selectedEnrollment = enrollment;
+    c.approvalAction = "Reject";
+    c.approvalComments = "";
+    c.showApprovalDialog = true;
+  };
+  
+  // Function to cancel approval/rejection
+  c.cancelApproval = function() {
+    c.showApprovalDialog = false;
+    c.selectedEnrollment = null;
+    c.approvalComments = "";
+  };
+  
+  // Function to confirm approval/rejection
+  c.confirmApproval = function() {
+    if (!c.selectedEnrollment) return;
+    
+    c.processing = true;
+    
+    var action = c.approvalAction === "Approve" ? "approve" : "reject";
+    
+    c.server.get({
+      action: action,
+      enrollmentId: c.selectedEnrollment.sys_id,
+      comments: c.approvalComments
+    }).then(function(response) {
+      c.processing = false;
+      c.showApprovalDialog = false;
+      
+      if (response.data.success) {
+        // Remove item from list on success
+        var index = c.data.pendingEnrollments.findIndex(function(item) {
+          return item.sys_id === c.selectedEnrollment.sys_id;
+        });
+        
+        if (index !== -1) {
+          c.data.pendingEnrollments.splice(index, 1);
+          setupPagination();
+        }
+      } else {
+        alert("Error: " + response.data.message);
+      }
+    });
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.enrollment-approval-widget {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.enrollment-approval-widget .panel-heading {
+  background-color: #1976d2;
+  color: white;
+}
+
+.enrollment-approval-widget .btn-group {
+  white-space: nowrap;
+}
+
+.modal {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+}
+
+.modal-dialog {
+  margin: 30px auto;
+  width: 600px;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
+
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_admin_approval</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Admin Approval</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Handle actions
+  if (input && input.action === 'approve') {
+    return approveEnrollment();
+  } else if (input && input.action === 'reject') {
+    return rejectEnrollment();
+  } else {
+    loadPendingEnrollments();
+  }
+  
+  // Function to load pending enrollments
+  function loadPendingEnrollments() {
+    data.pendingEnrollments = [];
+    
+    var enrollmentGR = new GlideRecord('x_1620151_class_en_enrollments');
+    enrollmentGR.addQuery('state', 'requested');
+    enrollmentGR.orderByDesc('sys_created_on');
+    enrollmentGR.query();
+    
+    while (enrollmentGR.next()) {
+      var studentName = "Unknown";
+      if (enrollmentGR.student) {
+        var userGR = new GlideRecord('sys_user');
+        if (userGR.get(enrollmentGR.student)) {
+          studentName = userGR.getDisplayValue();
+        }
+      }
+      
+      var courseName = "";
+      var courseId = "";
+      var units = 0;
+      if (enrollmentGR.course_id) {
+        var courseGR = new GlideRecord('x_1620151_class_en_courses');
+        if (courseGR.get(enrollmentGR.course_id)) {
+          courseName = courseGR.getDisplayValue('course_name') || courseGR.getDisplayValue('name');
+          courseId = courseGR.getValue('course_id');
+          units = parseInt(courseGR.getValue('units'), 10) || 0;
+        }
+      }
+      
+      var sectionName = "";
+      if (enrollmentGR.section) {
+        var sectionGR = new GlideRecord('x_1620151_class_en_classes');
+        if (sectionGR.get(enrollmentGR.section)) {
+          sectionName = sectionGR.getDisplayValue('section');
+        }
+      }
+      
+      // Format the date
+      var requestedDate = new GlideDateTime(enrollmentGR.sys_created_on);
+      var formattedDate = requestedDate.getDisplayValue();
+      
+      data.pendingEnrollments.push({
+        sys_id: enrollmentGR.getUniqueValue(),
+        number: enrollmentGR.getValue('number'),
+        student: enrollmentGR.getValue('student'),
+        student_name: studentName,
+        course_id: courseId,
+        course_name: courseName,
+        section: enrollmentGR.getValue('section'),
+        section_name: sectionName,
+        requested_date: formattedDate,
+        units: units
+      });
+    }
+  }
+  
+  // Function to approve enrollment
+  function approveEnrollment() {
+    var enrollmentId = input.enrollmentId;
+    var comments = input.comments;
+    
+    if (!enrollmentId) {
+      return {
+        data: {
+          success: false,
+          message: "No enrollment ID provided"
+        }
+      };
+    }
+    
+    try {
+      var enrollmentGR = new GlideRecord('x_1620151_class_en_enrollments');
+      if (!enrollmentGR.get(enrollmentId)) {
+        return {
+          data: {
+            success: false,
+            message: "Enrollment record not found"
+          }
+        };
+      }
+      
+      // Check if class is at capacity
+      var classCount = new GlideAggregate('x_1620151_class_en_enrollments');
+      classCount.addQuery('section', enrollmentGR.getValue('section'));
+      classCount.addQuery('state', 'approved');
+      classCount.addAggregate('COUNT');
+      classCount.query();
+      
+      var enrolledCount = 0;
+      if (classCount.next()) {
+        enrolledCount = parseInt(classCount.getAggregate('COUNT'), 10) || 0;
+      }
+      
+      if (enrolledCount >= 20) {
+        return {
+          data: {
+            success: false,
+            message: "Cannot approve - this class is at maximum capacity (20 students)."
+          }
+        };
+      }
+      
+      // Update enrollment record
+      enrollmentGR.setValue('state', 'approved');
+      
+      if (comments) {
+        enrollmentGR.setValue('work_notes', comments);
+      }
+      
+      enrollmentGR.update();
+      
+      // Send notification to student
+      var studentId = enrollmentGR.getValue('student');
+      
+      // You would add notification code here
+      // gs.eventQueue('enrollment.approved', enrollmentGR, studentId, comments);
+      
+      return {
+        data: {
+          success: true,
+          message: "Enrollment approved successfully"
+        }
+      };
+      
+    } catch(e) {
+      return {
+        data: {
+          success: false,
+          message: "Error: " + e
+        }
+      };
+    }
+  }
+  
+  // Function to reject enrollment
+  function rejectEnrollment() {
+    var enrollmentId = input.enrollmentId;
+    var comments = input.comments;
+    
+    if (!enrollmentId) {
+      return {
+        data: {
+          success: false,
+          message: "No enrollment ID provided"
+        }
+      };
+    }
+    
+    try {
+      var enrollmentGR = new GlideRecord('x_1620151_class_en_enrollments');
+      if (!enrollmentGR.get(enrollmentId)) {
+        return {
+          data: {
+            success: false,
+            message: "Enrollment record not found"
+          }
+        };
+      }
+      
+      // Update enrollment record
+      enrollmentGR.setValue('state', 'rejected');
+      
+      if (comments) {
+        enrollmentGR.setValue('work_notes', comments);
+      }
+      
+      enrollmentGR.update();
+      
+      // Send notification to student
+      var studentId = enrollmentGR.getValue('student');
+      
+      // You would add notification code here
+      // gs.eventQueue('enrollment.rejected', enrollmentGR, studentId, comments);
+      
+      return {
+        data: {
+          success: true,
+          message: "Enrollment rejected successfully"
+        }
+      };
+      
+    } catch(e) {
+      return {
+        data: {
+          success: false,
+          message: "Error: " + e
+        }
+      };
+    }
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:52:35</sys_created_on>
+        <sys_id>cef1acc847692250b3a2f884116d43c6</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>CEM Admin Approval</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_cef1acc847692250b3a2f884116d43c6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:53:33</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+</div><div class="panel panel-primary enrollment-approval-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <i class="fa fa-check-square-o"></i> Pending Enrollment Approvals
+    </h3>
+  </div>
+  <div class="panel-body">
+    <!-- Loading indicator -->
+    <div ng-if="c.loading" class="text-center p-3">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+      <p>Loading enrollment requests...</p>
+    </div>
+    
+    <!-- No requests message -->
+    <div ng-if="!c.loading && (!c.data.pendingEnrollments || c.data.pendingEnrollments.length === 0)" class="alert alert-info">
+      <i class="fa fa-info-circle"></i> There are no pending enrollment requests to approve.
+    </div>
+    
+    <!-- Requests table -->
+    <div ng-if="!c.loading && c.data.pendingEnrollments.length > 0" class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Date Requested</th>
+            <th>Units</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="enrollment in c.data.pendingEnrollments">
+            <td>{{enrollment.number}}</td>
+            <td>{{enrollment.student_name}}</td>
+            <td>{{enrollment.course_name}} ({{enrollment.course_id}})</td>
+            <td>{{enrollment.section_name}}</td>
+            <td>{{enrollment.requested_date}}</td>
+            <td>{{enrollment.units}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-success btn-sm" ng-click="c.approve(enrollment)" ng-disabled="c.processing">
+                  <i class="fa fa-check"></i> Approve
+                </button>
+                <button class="btn btn-danger btn-sm" ng-click="c.reject(enrollment)" ng-disabled="c.processing">
+                  <i class="fa fa-times"></i> Reject
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Pagination controls -->
+    <div ng-if="c.data.pendingEnrollments.length > 0" class="text-center">
+      <ul class="pagination">
+        <li ng-class="{disabled: c.currentPage === 1}">
+          <a href ng-click="c.currentPage > 1 && c.changePage(c.currentPage - 1)">Previous</a>
+        </li>
+        <li ng-repeat="page in c.pages" ng-class="{active: c.currentPage === page}">
+          <a href ng-click="c.changePage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled: c.currentPage === c.totalPages}">
+          <a href ng-click="c.currentPage < c.totalPages && c.changePage(c.currentPage + 1)">Next</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Approval dialog -->
+<div class="modal" ng-if="c.showApprovalDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{c.approvalAction}} Enrollment Request</h4>
+        <button type="button" class="close" ng-click="c.cancelApproval()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert" ng-class="'alert-' + (c.approvalAction === 'Approve' ? 'success' : 'danger')">
+          <p>You are about to <strong>{{c.approvalAction.toLowerCase()}}</strong> the enrollment request for:</p>
+          <ul>
+            <li><strong>Student:</strong> {{c.selectedEnrollment.student_name}}</li>
+            <li><strong>Course:</strong> {{c.selectedEnrollment.course_name}} ({{c.selectedEnrollment.course_id}})</li>
+            <li><strong>Section:</strong> {{c.selectedEnrollment.section_name}}</li>
+          </ul>
+        </div>
+        
+        <div class="form-group">
+          <label for="approval-comments">Comments (optional):</label>
+          <textarea id="approval-comments" class="form-control" ng-model="c.approvalComments" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="c.cancelApproval()">Cancel</button>
+        <button type="button" class="btn" 
+                ng-class="'btn-' + (c.approvalAction === 'Approve' ? 'success' : 'danger')"
+                ng-click="c.confirmApproval()" ng-disabled="c.processing">
+          {{c.approvalAction}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>cef1acc847692250b3a2f884116d43c6</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:52:35</sys_created_on>
+        <sys_id>0ef1acc847692250b3a2f884116d43c9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:52:35</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

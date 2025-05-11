@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Hero Section Improvements */
+.cem-hero-section {
+  position: relative;
+  padding: 80px 0 120px 0; /* Extended bottom padding */
+  color: white;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  background: #3498db; /* Solid color that matches your current blue */
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Center the section */
+  margin-right: calc(-50vw + 50%);
+  overflow: hidden;
+}
+
+/* Decorative background elements */
+.hero-bg-element {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.hero-bg-element-1 {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  right: -100px;
+}
+
+.hero-bg-element-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -50px;
+  left: -50px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  padding: 20px;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn-hero-primary {
+  background-color: white;
+  color: #3498db;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  color: #2980b9;
+}
+
+.btn-hero-secondary {
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  padding: 10px 25px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-hero-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  color: white;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_hero_section</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Hero Section</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Get current user and role
+  var user = gs.getUser();
+  data.userRole = 'guest';
+  
+  if (user.hasRole('x_1620151_class_en.student_role')) {
+    data.userRole = 'student';
+    setupStudentContent();
+  } else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+    data.userRole = 'teacher';
+    setupTeacherContent();
+  } else if (user.hasRole('x_1620151_class_en.admin_role')) {
+    data.userRole = 'admin';
+    setupAdminContent();
+  } else {
+    setupGuestContent();
+  }
+  
+  // Set content for a student
+  function setupStudentContent() {
+    data.title = "Your Academic Journey Starts Here";
+    data.subtitle = "Browse and enroll in courses, track your progress, and manage your academic schedule all in one place.";
+    data.primaryButtonText = "Browse Courses";
+    data.primaryButtonIcon = "fa-book";
+    data.primaryButtonLink = "#";  // Link to courses page
+    data.secondaryButtonText = "My Enrollments";
+    data.secondaryButtonIcon = "fa-clipboard-list";
+    data.secondaryButtonLink = "#"; // Link to enrollments
+    data.heroImage = "/x_1620151_class_en.students.svg";
+    data.imageAlt = "Students studying";
+  }
+  
+  // Set content for a teacher
+  function setupTeacherContent() {
+    data.title = "Manage Your Classes";
+    data.subtitle = "View your assigned classes, manage student rosters, and access teaching resources.";
+    data.primaryButtonText = "My Classes";
+    data.primaryButtonIcon = "fa-chalkboard";
+    data.primaryButtonLink = "#";  // Link to classes
+    data.secondaryButtonText = "Unassigned Classes";
+    data.secondaryButtonIcon = "fa-clipboard-check";
+    data.secondaryButtonLink = "#"; // Link to unassigned classes
+    data.heroImage = "/x_1620151_class_en.teacher.svg";
+    data.imageAlt = "Teacher with students";
+  }
+  
+  // Set content for an admin
+  function setupAdminContent() {
+    data.title = "Class Enrollment Administration";
+    data.subtitle = "Manage courses, approve enrollment requests, assign teachers, and generate reports.";
+    data.primaryButtonText = "Pending Approvals";
+    data.primaryButtonIcon = "fa-tasks";
+    data.primaryButtonLink = "#";  // Link to approvals
+    data.secondaryButtonText = "Manage Courses";
+    data.secondaryButtonIcon = "fa-cogs";
+    data.secondaryButtonLink = "#"; // Link to course management
+    data.heroImage = "/x_1620151_class_en.admin.svg";
+    data.imageAlt = "Administrator at work";
+  }
+  
+  // Set content for a guest/unauthenticated user
+  function setupGuestContent() {
+    data.title = "Welcome to Class Enrollment Management";
+    data.subtitle = "Sign in to browse courses, manage enrollments, and track your academic progress.";
+    data.primaryButtonText = "Sign In";
+    data.primaryButtonIcon = "fa-sign-in-alt";
+    data.primaryButtonLink = "/login.do";
+    data.secondaryButtonText = "Learn More";
+    data.secondaryButtonIcon = "fa-info-circle";
+    data.secondaryButtonLink = "#";
+    data.heroImage = "/x_1620151_class_en.campus.svg";
+    data.imageAlt = "Campus scene";
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 13:36:51</sys_created_on>
+        <sys_id>2a1c248847a92250b3a2f884116d43ef</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>CEM Hero Section</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_2a1c248847a92250b3a2f884116d43ef</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 17:55:05</sys_updated_on>
+        <template><![CDATA[<div class="cem-hero-section">
+  <!-- Decorative background elements -->
+  <div class="hero-bg-element hero-bg-element-1"></div>
+  <div class="hero-bg-element hero-bg-element-2"></div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="hero-content">
+          <h1 class="hero-title">Your Academic Journey Starts Here</h1>
+          <p class="hero-subtitle">Browse and enroll in courses, track your progress, and manage your academic schedule all in one place.</p>
+          <div class="hero-buttons">
+            <a href="?id=cem_courses" class="btn btn-hero-primary">
+              <i class="fa fa-book"></i> Browse Courses
+            </a>
+            <a href="?id=cem_my_enrollments" class="btn btn-hero-secondary">
+              <i class="fa fa-clipboard-list"></i> My Enrollments
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="hero-image">
+          <img src="cem_home_hero.png" width="1024" height="1024"/>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>2a1c248847a92250b3a2f884116d43ef</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 13:36:51</sys_created_on>
+        <sys_id>221c248847a92250b3a2f884116d43f2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 13:36:51</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

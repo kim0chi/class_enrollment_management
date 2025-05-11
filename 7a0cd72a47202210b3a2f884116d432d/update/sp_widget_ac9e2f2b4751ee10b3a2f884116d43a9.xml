@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  var c = this;
+  
+  // Function to get current date and time
+  c.getCurrentDateTime = function() {
+    var now = new Date();
+    var options = { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return now.toLocaleDateString('en-US', options);
+  };
+  
+  // Update time every minute
+  var timeUpdateInterval = setInterval(function() {
+    $scope.$apply();
+  }, 60000);
+  
+  // Clean up interval when widget is destroyed
+  $scope.$on('$destroy', function() {
+    clearInterval(timeUpdateInterval);
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.date-time-widget {
+  background-color: transparent;
+  border-radius: 0 0 8px 8px;
+  text-align: center;
+}
+
+.current-date-time {
+  padding: 15px 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cem_date_time</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Date Time</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 14:29:33</sys_created_on>
+        <sys_id>ac9e2f2b4751ee10b3a2f884116d43a9</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CEM Date Time</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_ac9e2f2b4751ee10b3a2f884116d43a9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 14:35:19</sys_updated_on>
+        <template><![CDATA[<div class="date-time-widget">
+  <div class="current-date-time">
+    <i class="fa fa-clock"></i> {{c.getCurrentDateTime()}}
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>ac9e2f2b4751ee10b3a2f884116d43a9</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 14:29:33</sys_created_on>
+        <sys_id>a49e2f2b4751ee10b3a2f884116d43ac</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 14:29:33</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

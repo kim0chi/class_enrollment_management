@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[// Client Controller
+function($scope, $window) {
+  var c = this;
+  
+  c.credentials = {
+    username: '',
+    password: ''
+  };
+  
+  c.errorMsg = '';
+  
+  c.login = function() {
+    $window.location.href = '/sp?id=cem_home&username=' + c.credentials.username + '&password=' + c.credentials.password;
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>// CSS
+.cem-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.1);
+}
+
+.cem-login-box {
+  background: white;
+  border-radius: 10px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-logo img {
+  max-width: 180px;
+}
+
+.cem-login-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  font-weight: 600;
+  color: #555;
+}
+
+.login-form .btn {
+  padding: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.login-form .btn:hover {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  color: #7f8c8d;
+}
+
+.login-footer a {
+  color: #3498db;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_login</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Login</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 15:37:17</sys_created_on>
+        <sys_id>0d1ebfab4791ee10b3a2f884116d43a5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>CEM Login</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_0d1ebfab4791ee10b3a2f884116d43a5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 15:39:59</sys_updated_on>
+        <template><![CDATA[// HTML Template
+<div class="cem-login-container">
+  <div class="cem-login-box">
+    <div class="login-logo">
+      <img src="<your-logo-url>" alt="Class Enrollment Management">
+    </div>
+    <h2>Sign In</h2>
+    <div class="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" ng-model="c.credentials.username" placeholder="Enter your username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" ng-model="c.credentials.password" placeholder="Enter your password">
+      </div>
+      <div class="alert alert-danger" role="alert" ng-if="c.errorMsg">
+        {{c.errorMsg}}
+      </div>
+      <button type="button" class="btn btn-primary btn-block" ng-click="c.login()">Login</button>
+    </div>
+    <div class="login-footer">
+      <p>Need help? <a href="#">Contact Support</a></p>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>0d1ebfab4791ee10b3a2f884116d43a5</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 15:37:18</sys_created_on>
+        <sys_id>051ebfab4791ee10b3a2f884116d43a8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 15:37:18</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

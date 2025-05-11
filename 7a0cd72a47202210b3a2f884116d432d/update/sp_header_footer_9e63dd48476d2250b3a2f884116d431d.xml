@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
+    <sp_header_footer action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cem_footer</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>CEM Footer</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <static>false</static>
+        <sys_class_name>sp_header_footer</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 16:29:05</sys_created_on>
+        <sys_id>9e63dd48476d2250b3a2f884116d431d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CEM Footer</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_header_footer_9e63dd48476d2250b3a2f884116d431d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 16:29:05</sys_updated_on>
+        <template><![CDATA[<footer class="cem-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="?id=cem_home">Home</a></li>
+          <li><a href="?id=cem_courses">Courses</a></li>
+          <li><a href="?id=cem_my_enrollments">My Enrollments</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h4>Help & Support</h4>
+        <ul class="footer-links">
+          <li><a href="?id=cem_help">Help Center</a></li>
+          <li><a href="?id=cem_faqs">FAQs</a></li>
+          <li><a href="?id=cem_contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h4>My Account</h4>
+        <ul class="footer-links">
+          <li><a href="?id=cem_profile">My Profile</a></li>
+          <li><a href="?id=cem_schedule">My Schedule</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>]]></template>
+    </sp_header_footer>
+</record_update>

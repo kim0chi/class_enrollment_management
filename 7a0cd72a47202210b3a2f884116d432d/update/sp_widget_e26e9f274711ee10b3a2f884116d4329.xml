@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  var c = this;
+  
+  // Client-side formatting for better UX
+  c.formatUnits = function(units) {
+    return units + (units === 1 ? " unit" : " units");
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.unit-counter-widget .panel-heading {
+  background-color: #337ab7;
+  color: white;
+}
+
+.unit-counter-widget .unit-summary {
+  margin-bottom: 20px;
+}
+
+.unit-counter-widget .unit-display {
+  margin-bottom: 10px;
+}
+
+.unit-counter-widget .unit-count {
+  font-size: 36px;
+  font-weight: bold;
+  color: #337ab7;
+}
+
+.unit-counter-widget .unit-max {
+  font-size: 24px;
+  color: #777;
+}
+
+.unit-counter-widget .unit-label {
+  display: block;
+  font-size: 16px;
+  color: #777;
+  margin-top: -5px;
+}
+
+.unit-counter-widget .progress {
+  height: 25px;
+  margin-bottom: 20px;
+}
+
+.unit-counter-widget .progress-bar {
+  line-height: 25px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.unit-counter-widget .enrollment-details {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.unit-counter-widget .enrollment-details h4 {
+  color: #337ab7;
+  margin-bottom: 15px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>unit_counter</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Unit Counter</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Initialize data
+  data.totalUnits = 0;
+  data.maxUnits = 21;
+  data.percentUsed = 0;
+  data.enrollments = [];
+  
+  // Only proceed if user is a student
+  var user = gs.getUser();
+  if (!user.hasRole('x_1620151_class_en.student_role')) {
+    data.isStudent = false;
+    return;
+  }
+  
+  data.isStudent = true;
+  var userId = user.getID();
+  
+  // Get approved enrollments
+  var enrollGR = new GlideRecord('x_1620151_class_en_enrollments');
+  enrollGR.addQuery('student', userId);
+  // Only count approved enrollments toward the unit total
+  enrollGR.addQuery('state', 'approved');
+  enrollGR.query();
+  
+  // For each enrollment, get the course and add its units
+  while (enrollGR.next()) {
+    var courseId = enrollGR.getValue('course_id');
+    if (courseId) {
+      var courseGR = new GlideRecord('x_1620151_class_en_courses');
+      if (courseGR.get(courseId)) {
+        var units = parseInt(courseGR.getValue('units') || '0', 10);
+        data.totalUnits += units;
+        
+        // Add to enrollments list for display
+        data.enrollments.push({
+          course: courseGR.getDisplayValue('u_course_name') || courseGR.getDisplayValue('course_name'),
+          units: units
+        });
+      }
+    }
+  }
+  
+  // Calculate percentage (for progress bar)
+  data.percentUsed = Math.min(Math.round((data.totalUnits / data.maxUnits) * 100), 100);
+  
+  // Get remaining units
+  data.remainingUnits = data.maxUnits - data.totalUnits;
+  
+  // Determine status color based on usage
+  if (data.percentUsed < 50) {
+    data.statusColor = 'success'; // green
+  } else if (data.percentUsed < 85) {
+    data.statusColor = 'warning'; // yellow
+  } else {
+    data.statusColor = 'danger';  // red
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:18:57</sys_created_on>
+        <sys_id>e26e9f274711ee10b3a2f884116d4329</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Unit Counter</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_e26e9f274711ee10b3a2f884116d4329</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:20:58</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default unit-counter-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <span class="fa fa-calculator"></span>
+      Unit Counter
+    </h3>
+  </div>
+  
+  <div class="panel-body">
+    <div ng-if="!c.data.isStudent" class="text-center">
+      <div class="alert alert-info">
+        <span class="fa fa-info-circle"></span>
+        This widget is only available for students.
+      </div>
+    </div>
+    
+    <div ng-if="c.data.isStudent">
+      <div class="unit-summary text-center">
+        <div class="unit-display">
+          <span class="unit-count">{{c.data.totalUnits}}</span>
+          <span class="unit-max">/ {{c.data.maxUnits}}</span>
+          <span class="unit-label">Units</span>
+        </div>
+        
+        <div class="unit-subtitle">
+          <span ng-if="c.data.remainingUnits > 0">
+            You can enroll in {{c.data.remainingUnits}} more units
+          </span>
+          <span ng-if="c.data.remainingUnits <= 0">
+            You have reached the maximum unit limit
+          </span>
+        </div>
+      </div>
+      
+      <div class="progress">
+        <div class="progress-bar progress-bar-{{c.data.statusColor}}" 
+             role="progressbar" 
+             aria-valuenow="{{c.data.totalUnits}}" 
+             aria-valuemin="0" 
+             aria-valuemax="{{c.data.maxUnits}}" 
+             style="width: {{c.data.percentUsed}}%">
+          <span>{{c.data.totalUnits}}/{{c.data.maxUnits}} Units</span>
+        </div>
+      </div>
+      
+      <div class="enrollment-details" ng-if="c.data.enrollments.length > 0">
+        <h4>Enrolled Courses</h4>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th class="text-right">Units</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="enrollment in c.data.enrollments">
+              <td>{{enrollment.course}}</td>
+              <td class="text-right">{{enrollment.units}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="text-center" ng-if="c.data.enrollments.length == 0">
+        <div class="alert alert-warning">
+          <span class="fa fa-exclamation-triangle"></span>
+          You are not enrolled in any courses yet.
+        </div>
+        <a href="#" class="btn btn-primary">Browse Available Courses</a>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>e26e9f274711ee10b3a2f884116d4329</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:18:57</sys_created_on>
+        <sys_id>a26e9f274711ee10b3a2f884116d432c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:18:57</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

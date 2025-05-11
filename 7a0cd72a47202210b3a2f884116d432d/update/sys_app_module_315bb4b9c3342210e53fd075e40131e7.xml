@@ -18,14 +18,14 @@
         <query/>
         <report/>
         <require_confirmation>true</require_confirmation>
-        <roles>x_1620151_class_en.teacher,x_1620151_class_en.admin</roles>
+        <roles>x_1620151_class_en.teacher,x_1620151_class_en.admin,x_1620151_class_en.student</roles>
         <sys_class_name>sys_app_module</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-04-09 18:26:38</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>315bb4b9c3342210e53fd075e40131e7</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>Available Courses</sys_name>
         <sys_overrides/>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
@@ -33,7 +33,7 @@
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sys_app_module_315bb4b9c3342210e53fd075e40131e7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-09 18:26:38</sys_updated_on>
+        <sys_updated_on>2025-05-01 14:19:21</sys_updated_on>
         <timeline_page/>
         <title>Available Courses</title>
         <uncancelable>false</uncancelable>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $http, spModal) {
+  var c = this;
+  
+  // Initialize variables
+  c.showSectionModal = false;
+  c.showConfirmation = false;
+  c.sections = [];
+  c.selectedSection = null;
+  c.selectedCourse = null;
+  c.processing = false;
+  
+  // Function to handle course selection
+  c.selectCourse = function(course) {
+    c.selectedCourse = course;
+    c.selectedSection = null;
+    c.getSections(course.sys_id);
+  };
+  
+  // Function to get sections for a course
+  c.getSections = function(courseId) {
+    c.processing = true;
+    c.server.get({
+      action: 'getSections',
+      courseId: courseId
+    }).then(function(response) {
+      c.sections = response.data.sections;
+      c.showSectionModal = true;
+      c.processing = false;
+      
+      // If no sections, display message
+      if (c.sections.length === 0) {
+        c.confirmationTitle = "No Sections Available";
+        c.confirmationMessage = "There are currently no sections available for this course.";
+        c.showConfirmation = true;
+        c.showSectionModal = false;
+      }
+    });
+  };
+  
+  // Function to cancel section selection
+  c.cancelSectionSelect = function() {
+    c.showSectionModal = false;
+    c.selectedSection = null;
+  };
+  
+  // Function to submit enrollment
+  c.submitEnrollment = function() {
+    if (!c.selectedSection || !c.selectedCourse) return;
+    
+    c.processing = true;
+    c.server.get({
+      action: 'submitEnrollment',
+      courseId: c.selectedCourse.sys_id,
+      sectionId: c.selectedSection
+    }).then(function(response) {
+      c.processing = false;
+      c.showSectionModal = false;
+      
+      // Handle response
+      c.enrollmentSuccess = response.data.success;
+      c.confirmationTitle = response.data.success ? "Enrollment Submitted" : "Enrollment Failed";
+      c.confirmationMessage = response.data.message;
+      c.showConfirmation = true;
+    });
+  };
+  
+  // Function to close confirmation
+  c.closeConfirmation = function() {
+    c.showConfirmation = false;
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.course-item {
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+  margin-bottom: 10px;
+}
+
+.course-item:last-child {
+  border-bottom: none;
+}
+
+.course-description {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.units-badge {
+  background-color: #337ab7;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.modal {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+}
+
+.modal-dialog {
+  margin: 30px auto;
+  width: 600px;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
+
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_available-courses</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Available Courses</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Get courses data
+  if (input && input.action === 'getSections') {
+    return getSections();
+  } else if (input && input.action === 'submitEnrollment') {
+    return submitEnrollment();
+  } else {
+    loadCourses();
+  }
+  
+  // Function to load courses
+  function loadCourses() {
+    data.courses = [];
+    var gr = new GlideRecord('x_1620151_class_en_courses');
+    gr.query();
+    while (gr.next()) {
+      data.courses.push({
+        sys_id: gr.getUniqueValue(),
+        course_id: gr.getValue('course_id'),
+        name: gr.getValue('course_name') || gr.getValue('name'),
+        units: gr.getValue('units'),
+        description: gr.getValue('description')
+      });
+    }
+  }
+  
+  // Function to get sections for a course
+  function getSections() {
+    var courseId = input.courseId;
+    var sections = [];
+    
+    var gr = new GlideRecord('x_1620151_class_en_classes');
+    gr.addQuery('courses', 'CONTAINS', courseId);
+    gr.query();
+    
+    while (gr.next()) {
+      var teacherName = "Not Assigned";
+      if (gr.getValue('teacher')) {
+        var teacherGR = new GlideRecord('sys_user');
+        if (teacherGR.get(gr.getValue('teacher'))) {
+          teacherName = teacherGR.getDisplayValue();
+        }
+      }
+      
+      sections.push({
+        sys_id: gr.getUniqueValue(),
+        section: gr.getValue('section'),
+        teacher: gr.getValue('teacher'),
+        teacher_name: teacherName
+      });
+    }
+    
+    return {
+      data: {
+        sections: sections
+      }
+    };
+  }
+  
+  // Function to submit enrollment
+  function submitEnrollment() {
+    var courseId = input.courseId;
+    var sectionId = input.sectionId;
+    var userId = gs.getUserID();
+    
+    // Validation: Check for duplicate enrollment
+    var dupCheck = new GlideRecord('x_1620151_class_en_enrollments');
+    dupCheck.addQuery('student', userId);
+    dupCheck.addQuery('course_id', courseId);
+    dupCheck.addQuery('state', 'IN', 'requested,approved');
+    dupCheck.query();
+    
+    if (dupCheck.hasNext()) {
+      return {
+        data: {
+          success: false,
+          message: "You are already enrolled or have a pending request for this course."
+        }
+      };
+    }
+    
+    // Validation: Check for unit limit
+    var totalUnits = 0;
+    var unitCount = new GlideRecord('x_1620151_class_en_enrollments');
+    unitCount.addQuery('student', userId);
+    unitCount.addQuery('state', 'approved');
+    unitCount.query();
+    
+    while (unitCount.next()) {
+      var courseGR = new GlideRecord('x_1620151_class_en_courses');
+      if (courseGR.get(unitCount.getValue('course_id'))) {
+        totalUnits += parseInt(courseGR.getValue('units'), 10) || 0;
+      }
+    }
+    
+    // Get units for current course
+    var newUnits = 0;
+    var courseGR = new GlideRecord('x_1620151_class_en_courses');
+    if (courseGR.get(courseId)) {
+      newUnits = parseInt(courseGR.getValue('units'), 10) || 0;
+    }
+    
+    if ((totalUnits + newUnits) > 21) {
+      return {
+        data: {
+          success: false,
+          message: "Enrollment would exceed the maximum of 21 units. You currently have " + 
+                  totalUnits + " units and this course is " + newUnits + " units."
+        }
+      };
+    }
+    
+    // Validation: Check class capacity
+    var classCount = new GlideAggregate('x_1620151_class_en_enrollments');
+    classCount.addQuery('section', sectionId);
+    classCount.addQuery('state', 'approved');
+    classCount.addAggregate('COUNT');
+    classCount.query();
+    
+    var enrolledCount = 0;
+    if (classCount.next()) {
+      enrolledCount = parseInt(classCount.getAggregate('COUNT'), 10) || 0;
+    }
+    
+    if (enrolledCount >= 20) {
+      return {
+        data: {
+          success: false,
+          message: "This class is at maximum capacity (20 students)."
+        }
+      };
+    }
+    
+    // Create enrollment record
+    try {
+      var enrollment = new GlideRecord('x_1620151_class_en_enrollments');
+      enrollment.initialize();
+      enrollment.setValue('student', userId);
+      enrollment.setValue('course_id', courseId);
+      enrollment.setValue('section', sectionId);
+      enrollment.setValue('state', 'requested');
+      var enrollmentId = enrollment.insert();
+      
+      // Create catalog request to trigger flow
+      var catalogRequest = new GlideRecord('sc_request');
+      catalogRequest.initialize();
+      catalogRequest.setValue('requested_for', userId);
+      var requestId = catalogRequest.insert();
+      
+      var catalogItem = new GlideRecord('sc_req_item');
+      catalogItem.initialize();
+      catalogItem.setValue('request', requestId);
+      catalogItem.setValue('cat_item', getCourseEnrollmentCatalogItem());
+      catalogItem.setValue('enrollment_record', enrollmentId);
+      catalogItem.insert();
+      
+      return {
+        data: {
+          success: true,
+          message: "Your enrollment request has been submitted successfully and is pending approval."
+        }
+      };
+    } catch(e) {
+      return {
+        data: {
+          success: false,
+          message: "An error occurred: " + e
+        }
+      };
+    }
+  }
+  
+  // Helper function to get catalog item ID
+  function getCourseEnrollmentCatalogItem() {
+    var gr = new GlideRecord('sc_cat_item');
+    gr.addQuery('name', 'Course Enrollment Request');
+    gr.query();
+    if (gr.next()) {
+      return gr.getUniqueValue();
+    }
+    return null;
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 11:12:03</sys_created_on>
+        <sys_id>370ba0b047d92210b3a2f884116d4347</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>Available Courses</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_370ba0b047d92210b3a2f884116d4347</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:50:59</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Available Courses</h3>
+  </div>
+  <div class="panel-body">
+    <!-- No courses message -->
+    <div ng-if="!c.data.courses || c.data.courses.length === 0" class="alert alert-info">
+      No courses are currently available for enrollment.
+    </div>
+    
+    <!-- Course listing -->
+    <div ng-repeat="course in c.data.courses" class="course-item">
+      <div class="row">
+        <div class="col-md-8">
+          <h4>{{course.course_id}}: {{course.name}}</h4>
+          <p class="course-description">{{course.description}}</p>
+          <div class="course-details">
+            <span class="units-badge">{{course.units}} Units</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-right">
+          <button class="btn btn-primary" ng-click="c.selectCourse(course)">Enroll</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Section selection modal -->
+  <div class="modal" ng-if="c.showSectionModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select a Section</h4>
+          <button type="button" class="close" ng-click="c.cancelSectionSelect()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div ng-if="c.sections.length === 0" class="alert alert-warning">
+            No sections available for this course.
+          </div>
+          <div ng-if="c.sections.length > 0">
+            <div class="form-group">
+              <label for="section-select">Available Sections:</label>
+              <select id="section-select" class="form-control" ng-model="c.selectedSection">
+                <option ng-repeat="section in c.sections" value="{{section.sys_id}}">
+                  {{section.section}} - Instructor: {{section.teacher_name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="c.cancelSectionSelect()">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="c.submitEnrollment()" 
+                  ng-disabled="!c.selectedSection || c.processing">
+            Submit Enrollment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Confirmation Modal -->
+  <div class="modal" ng-if="c.showConfirmation">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{c.confirmationTitle}}</h4>
+          <button type="button" class="close" ng-click="c.closeConfirmation()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div ng-class="'alert alert-' + (c.enrollmentSuccess ? 'success' : 'danger')">
+            {{c.confirmationMessage}}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="c.closeConfirmation()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>370ba0b047d92210b3a2f884116d4347</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-01 11:12:03</sys_created_on>
+        <sys_id>ff0ba0b047d92210b3a2f884116d4349</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-01 11:12:03</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Statistics Section Improvements */
+.cem-stats-section {
+  position: relative;
+  padding: 0 0 80px 0;
+  margin-top: -80px; /* Pull up to overlap with hero */
+  background: transparent; /* No background color - will use hero's color */
+  color: white;
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Center the section */
+  margin-right: calc(-50vw + 50%);
+  z-index: 20;
+}
+
+.stats-content {
+  position: relative;
+  z-index: 20;
+  padding: 0 20px;
+}
+
+.stats-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.stats-description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.stats-button {
+  background-color: white;
+  color: #3498db;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.stats-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  color: #2980b9;
+}
+
+/* Completely redesigned stat cards */
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  padding: 25px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+  z-index: 1;
+}
+
+.stat-number {
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Statistics Section Simple Fix */
+.cem-stats-section {
+  padding: 40px 0 80px 0;
+  background: linear-gradient(to bottom, #3498db 0%, #2980b9 100%);
+  color: white;
+}
+
+/* Stats Box Enhancement */
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 25px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Numbers Enhancement */
+.stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: white;
+}
+
+/* Labels Enhancement */
+.stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Section Transition Improvement */
+.section-transition {
+  height: 40px;
+  margin-top: -40px;
+  background: linear-gradient(to bottom, #3498db, #3498db);
+  position: relative;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_statistics</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Statistics</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Get statistics from your ServiceNow instance
+  var courseCount = getRecordCount('x_1620151_class_en_courses');
+  var enrollmentCount = getRecordCount('x_1620151_class_en_enrollments');
+  var classCount = getRecordCount('x_1620151_class_en_classes');
+  var studentCount = getStudentCount();
+  
+  // Set up the statistics
+  data.stats = [
+    {
+      value: courseCount,
+      label: "Courses Available"
+    },
+    {
+      value: classCount,
+      label: "Active Classes"
+    },
+    {
+      value: studentCount,
+      label: "Students Enrolled"
+    },
+    {
+      value: enrollmentCount,
+      label: "Total Enrollments"
+    }
+  ];
+  
+  // Helper function to count records
+  function getRecordCount(table) {
+    var ga = new GlideAggregate(table);
+    ga.addAggregate('COUNT');
+    ga.query();
+    if (ga.next()) {
+      return ga.getAggregate('COUNT');
+    }
+    return 0;
+  }
+  
+  // Helper function to count distinct students with enrollments
+  function getStudentCount() {
+    var ga = new GlideAggregate('x_1620151_class_en_enrollments');
+    ga.addAggregate('COUNT', 'student', true);
+    ga.query();
+    if (ga.next()) {
+      return ga.getAggregate('COUNT', 'student', true);
+    }
+    return 0;
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 13:44:58</sys_created_on>
+        <sys_id>55fd2cc847a92250b3a2f884116d437d</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>CEM Statistics</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_55fd2cc847a92250b3a2f884116d437d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 14:01:48</sys_updated_on>
+        <template><![CDATA[<div class="cem-stats-connector">
+<div class="cem-stats-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="stats-content">
+          <h2 class="stats-title">Class Enrollment by the Numbers</h2>
+          <p class="stats-description">Our comprehensive enrollment system is trusted by students, faculty, and administrators.</p>
+          <a href="#" class="stats-button">Learn More</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">23</div>
+              <div class="stat-label">Courses Available</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Active Classes</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Students Enrolled</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">2</div>
+              <div class="stat-label">Total Enrollments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>55fd2cc847a92250b3a2f884116d437d</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 13:44:58</sys_created_on>
+        <sys_id>11fd2c0c47a92250b3a2f884116d43d3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 13:44:58</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

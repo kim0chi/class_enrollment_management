@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  var c = this;
+  
+  // Function to mark notification as read
+  c.markAsRead = function(notification) {
+    notification.read = true;
+    
+    // In a real implementation, you would call a server-side script to update the notification status
+    // c.server.get({
+    //   action: 'mark_read',
+    //   notification_id: notification.id
+    // });
+  };
+  
+  // Initialize all notifications as unread for demo purposes
+  $scope.$watch('c.data.notifications', function(notifications) {
+    if (notifications && notifications.length) {
+      angular.forEach(notifications, function(notification) {
+        notification.read = false;
+      });
+    }
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.notifications-widget .panel-heading {
+  background-color: #337ab7;
+  color: white;
+}
+
+.notifications-widget .panel-heading .badge {
+  background-color: #d9534f;
+}
+
+.notifications-widget .notifications-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notifications-widget .notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.notifications-widget .notification-item:last-child {
+  border-bottom: none;
+}
+
+.notifications-widget .notification-item.unread {
+  background-color: #f7f7f7;
+}
+
+.notifications-widget .notification-icon {
+  font-size: 20px;
+  padding-right: 15px;
+  padding-top: 3px;
+}
+
+.notifications-widget .notification-content {
+  flex: 1;
+}
+
+.notifications-widget .notification-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.notifications-widget .notification-message {
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.notifications-widget .notification-date {
+  color: #777;
+  font-size: 12px;
+}
+
+.notifications-widget .notification-actions {
+  margin-left: 10px;
+}
+
+.notifications-widget .notification-actions a {
+  cursor: pointer;
+  color: #777;
+}
+
+.notifications-widget .notification-actions a:hover {
+  color: #333;
+}
+
+.notifications-widget .view-all-link {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.text-success {
+  color: #5cb85c;
+}
+
+.text-warning {
+  color: #f0ad4e;
+}
+
+.text-danger {
+  color: #d9534f;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cem_notifications</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Notifications</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Initialize data
+  data.notifications = [];
+  data.hasNotifications = false;
+  data.userRole = "";
+  
+  // Determine user role
+  var user = gs.getUser();
+  var userId = user.getID();
+  
+  if (user.hasRole('x_1620151_class_en.student_role')) {
+    data.userRole = "student";
+    
+    // Get enrollment notifications for students
+    var enrollGR = new GlideRecord('x_1620151_class_en_enrollments');
+    enrollGR.addQuery('student', userId);
+    // Find recently approved/rejected enrollments (last 7 days)
+    var sevenDaysAgo = new GlideDateTime();
+    sevenDaysAgo.addDaysUTC(-7);
+    enrollGR.addQuery('sys_updated_on', '>', sevenDaysAgo);
+    // Only show ones with decision
+    enrollGR.addQuery('state', 'IN', 'approved,rejected');
+    enrollGR.orderByDesc('sys_updated_on');
+    enrollGR.setLimit(10);
+    enrollGR.query();
+    
+    while (enrollGR.next()) {
+      var courseInfo = "";
+      var courseId = enrollGR.getValue('course_id');
+      if (courseId) {
+        var courseGR = new GlideRecord('x_1620151_class_en_courses');
+        if (courseGR.get(courseId)) {
+          courseInfo = courseGR.getDisplayValue('u_course_name') || 
+                      courseGR.getDisplayValue('course_name');
+        }
+      }
+      
+      data.notifications.push({
+        id: enrollGR.getUniqueValue(),
+        type: enrollGR.getValue('state'),
+        title: enrollGR.getValue('state') == 'approved' ? 
+              'Enrollment Approved' : 'Enrollment Rejected',
+        message: 'Your enrollment for ' + courseInfo + ' has been ' + 
+                enrollGR.getValue('state'),
+        date: enrollGR.getDisplayValue('sys_updated_on'),
+        icon: enrollGR.getValue('state') == 'approved' ? 
+              'fa-check-circle' : 'fa-times-circle',
+        link: '#'
+      });
+    }
+  } 
+  else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+    data.userRole = "teacher";
+    
+    // Get class assignment notifications for teachers
+    var classGR = new GlideRecord('x_1620151_class_en_classes');
+    classGR.addQuery('teacher', userId);
+    // Find recently assigned classes (last 7 days)
+    var sevenDaysAgo = new GlideDateTime();
+    sevenDaysAgo.addDaysUTC(-7);
+    classGR.addQuery('sys_updated_on', '>', sevenDaysAgo);
+    classGR.orderByDesc('sys_updated_on');
+    classGR.setLimit(10);
+    classGR.query();
+    
+    while (classGR.next()) {
+      data.notifications.push({
+        id: classGR.getUniqueValue(),
+        type: 'class_assigned',
+        title: 'New Class Assignment',
+        message: 'You have been assigned to teach section ' + 
+                classGR.getDisplayValue('section'),
+        date: classGR.getDisplayValue('sys_updated_on'),
+        icon: 'fa-chalkboard-teacher',
+        link: '#'
+      });
+    }
+  } 
+  else if (user.hasRole('x_1620151_class_en.admin_role')) {
+    data.userRole = "admin";
+    
+    // Get pending enrollment approvals for administrators
+    var pendingGR = new GlideRecord('x_1620151_class_en_enrollments');
+    pendingGR.addQuery('state', 'requested');
+    pendingGR.orderByDesc('sys_created_on');
+    pendingGR.setLimit(10);
+    pendingGR.query();
+    
+    while (pendingGR.next()) {
+      var studentName = pendingGR.getDisplayValue('student');
+      var courseName = "";
+      var courseId = pendingGR.getValue('course_id');
+      if (courseId) {
+        var courseGR = new GlideRecord('x_1620151_class_en_courses');
+        if (courseGR.get(courseId)) {
+          courseName = courseGR.getDisplayValue('u_course_name') || 
+                      courseGR.getDisplayValue('course_name');
+        }
+      }
+      
+      data.notifications.push({
+        id: pendingGR.getUniqueValue(),
+        type: 'pending_approval',
+        title: 'Enrollment Requires Approval',
+        message: studentName + ' has requested enrollment in ' + courseName,
+        date: pendingGR.getDisplayValue('sys_created_on'),
+        icon: 'fa-clipboard-check',
+        link: '#'
+      });
+    }
+    
+    // Add class capacity warnings
+    var capacityGR = new GlideRecord('x_1620151_class_en_classes');
+    capacityGR.query();
+    
+    while (capacityGR.next()) {
+      // Count enrollments for this class
+      var enrollCount = new GlideAggregate('x_1620151_class_en_enrollments');
+      enrollCount.addQuery('section', capacityGR.getUniqueValue());
+      enrollCount.addQuery('state', 'approved');
+      enrollCount.addAggregate('COUNT');
+      enrollCount.query();
+      
+      var count = 0;
+      if (enrollCount.next()) {
+        count = enrollCount.getAggregate('COUNT');
+      }
+      
+      // If near capacity (>=18) or at capacity (=20), create notification
+      if (count >= 18) {
+        data.notifications.push({
+          id: capacityGR.getUniqueValue(),
+          type: count >= 20 ? 'class_full' : 'class_near_capacity',
+          title: count >= 20 ? 'Class At Capacity' : 'Class Near Capacity',
+          message: 'Section ' + capacityGR.getDisplayValue('section') + 
+                  ' has ' + count + '/20 students enrolled',
+          date: gs.nowDateTime(),
+          icon: count >= 20 ? 'fa-exclamation-circle' : 'fa-exclamation-triangle',
+          link: '#'
+        });
+      }
+    }
+  }
+  
+  // Sort notifications by date (newest first)
+  data.notifications.sort(function(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  });
+  
+  // Set flag for template
+  data.hasNotifications = data.notifications.length > 0;
+  data.notificationCount = data.notifications.length;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:23:22</sys_created_on>
+        <sys_id>db6f93274711ee10b3a2f884116d43e1</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CEM Notifications</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_db6f93274711ee10b3a2f884116d43e1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:23:59</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default notifications-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <span class="fa fa-bell"></span>
+      Notifications
+      <span class="badge" ng-if="c.data.notificationCount > 0">
+        {{c.data.notificationCount}}
+      </span>
+    </h3>
+  </div>
+  
+  <div class="panel-body">
+    <!-- No notifications message -->
+    <div ng-if="!c.data.hasNotifications" class="text-center">
+      <div class="alert alert-info">
+        <span class="fa fa-info-circle"></span>
+        You have no new notifications.
+      </div>
+    </div>
+    
+    <!-- Notifications list -->
+    <div ng-if="c.data.hasNotifications" class="notifications-list">
+      <div ng-repeat="notification in c.data.notifications" 
+           class="notification-item"
+           ng-class="{'unread': !notification.read}">
+        
+        <div class="notification-icon">
+          <span class="fa {{notification.icon}}" 
+                ng-class="{
+                  'text-success': notification.type == 'approved' || notification.type == 'class_assigned',
+                  'text-danger': notification.type == 'rejected' || notification.type == 'class_full',
+                  'text-warning': notification.type == 'pending_approval' || notification.type == 'class_near_capacity'
+                }">
+          </span>
+        </div>
+        
+        <div class="notification-content">
+          <div class="notification-title">{{notification.title}}</div>
+          <div class="notification-message">{{notification.message}}</div>
+          <div class="notification-date">{{notification.date | date:'medium'}}</div>
+        </div>
+        
+        <div class="notification-actions">
+          <a ng-click="c.markAsRead(notification)" title="Mark as read" ng-if="!notification.read">
+            <span class="fa fa-check"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Show all link -->
+    <div ng-if="c.data.hasNotifications" class="text-center view-all-link">
+      <a href="#">View all notifications</a>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>db6f93274711ee10b3a2f884116d43e1</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 13:23:22</sys_created_on>
+        <sys_id>9f6f93a74711ee10b3a2f884116d439d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 13:23:22</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $http, spUtil) {
+  var c = this;
+  
+  // Initialize variables
+  c.loading = true;
+  c.activeTab = 'assigned';
+  c.showStudentModal = false;
+  c.showAssignmentModal = false;
+  c.loadingStudents = false;
+  c.processing = false;
+  c.selectedClass = null;
+  c.students = [];
+  c.requestNotes = '';
+  
+  // Load initial data
+  c.server.refresh().then(function() {
+    c.loading = false;
+  });
+  
+  // Set active tab
+  c.setActiveTab = function(tab) {
+    c.activeTab = tab;
+  };
+  
+  // View students in a class
+  c.viewStudents = function(classItem) {
+    c.selectedClass = classItem;
+    c.loadingStudents = true;
+    c.showStudentModal = true;
+    
+    c.server.get({
+      action: 'getStudents',
+      classId: classItem.sys_id
+    }).then(function(response) {
+      c.loadingStudents = false;
+      c.students = response.data.students || [];
+    });
+  };
+  
+  // Close student modal
+  c.closeStudentModal = function() {
+    c.showStudentModal = false;
+    c.selectedClass = null;
+    c.students = [];
+  };
+  
+  // Request class assignment
+  c.requestAssignment = function(classItem) {
+    c.selectedClass = classItem;
+    c.requestNotes = '';
+    c.showAssignmentModal = true;
+  };
+  
+  // Close assignment modal
+  c.closeAssignmentModal = function() {
+    c.showAssignmentModal = false;
+    c.selectedClass = null;
+    c.requestNotes = '';
+  };
+  
+  // Submit assignment request
+  c.submitAssignmentRequest = function() {
+    if (!c.selectedClass) return;
+    
+    c.processing = true;
+    
+    c.server.get({
+      action: 'requestAssignment',
+      classId: c.selectedClass.sys_id,
+      notes: c.requestNotes
+    }).then(function(response) {
+      c.processing = false;
+      
+      if (response.data.success) {
+        spUtil.addInfoMessage("Assignment request submitted successfully.");
+        c.closeAssignmentModal();
+        c.server.refresh();
+      } else {
+        spUtil.addErrorMessage("Error: " + (response.data.message || "An unknown error occurred."));
+      }
+    });
+  };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.teacher-dashboard-widget {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.teacher-dashboard-widget .panel-heading {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.teacher-dashboard-widget .nav-tabs {
+  margin-bottom: 15px;
+}
+
+.teacher-dashboard-widget .nav-tabs &gt; li {
+  cursor: pointer;
+}
+
+.teacher-dashboard-widget .badge {
+  background-color: #777;
+}
+
+.teacher-dashboard-widget .nav-tabs &gt; li.active .badge {
+  background-color: #2e7d32;
+}
+
+.m-t-15 {
+  margin-top: 15px;
+}
+
+.class-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.class-header {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.class-header h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.class-count-badge {
+  padding: 5px 8px;
+}
+
+.badge-success {
+  background-color: #4caf50;
+}
+
+.badge-warning {
+  background-color: #ff9800;
+}
+
+.badge-danger {
+  background-color: #f44336;
+}
+
+.class-courses {
+  padding: 15px;
+}
+
+.class-courses h5 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.class-courses ul {
+  margin-bottom: 0;
+}
+
+.class-courses li {
+  margin-bottom: 5px;
+}
+
+.class-footer {
+  padding: 15px;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.modal {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+}
+
+.modal-dialog {
+  margin: 30px auto;
+  width: 600px;
+}
+
+.modal-lg {
+  width: 800px;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
+
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_teacher_class_dashboard</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Teacher Class Dashboard</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Handle actions
+  if (input && input.action === 'getStudents') {
+    return getStudents();
+  } else if (input && input.action === 'requestAssignment') {
+    return requestAssignment();
+  } else {
+    loadClasses();
+  }
+  
+  // Function to load classes
+  function loadClasses() {
+    data.assignedClasses = [];
+    data.unassignedClasses = [];
+    
+    var currentUser = gs.getUserID();
+    
+    // Get assigned classes
+    var assignedGR = new GlideRecord('x_1620151_class_en_classes');
+    assignedGR.addQuery('teacher', currentUser);
+    assignedGR.orderBy('section');
+    assignedGR.query();
+    
+    while (assignedGR.next()) {
+      var classItem = {
+        sys_id: assignedGR.getUniqueValue(),
+        section: assignedGR.getValue('section'),
+        courses: getCoursesForClass(assignedGR),
+        student_count: getStudentCount(assignedGR.getUniqueValue())
+      };
+      
+      data.assignedClasses.push(classItem);
+    }
+    
+    // Get unassigned classes
+    var unassignedGR = new GlideRecord('x_1620151_class_en_classes');
+    unassignedGR.addNullQuery('teacher');
+    unassignedGR.orderBy('section');
+    unassignedGR.query();
+    
+    while (unassignedGR.next()) {
+      var classItem = {
+        sys_id: unassignedGR.getUniqueValue(),
+        section: unassignedGR.getValue('section'),
+        courses: getCoursesForClass(unassignedGR),
+        student_count: getStudentCount(unassignedGR.getUniqueValue())
+      };
+      
+      data.unassignedClasses.push(classItem);
+    }
+  }
+  
+  // Helper function to get courses for a class
+  function getCoursesForClass(classGR) {
+    var courses = [];
+    var coursesArray = classGR.getValue('courses');
+    
+    if (coursesArray) {
+      var courseIds = coursesArray.split(',');
+      
+      for (var i = 0; i < courseIds.length; i++) {
+        var courseGR = new GlideRecord('x_1620151_class_en_courses');
+        if (courseGR.get(courseIds[i])) {
+          courses.push({
+            sys_id: courseGR.getUniqueValue(),
+            course_id: courseGR.getValue('course_id'),
+            name: courseGR.getValue('course_name') || courseGR.getValue('name'),
+            units: parseInt(courseGR.getValue('units'), 10) || 0
+          });
+        }
+      }
+    }
+    
+    return courses;
+  }
+  
+  // Helper function to get student count for a class
+  function getStudentCount(classId) {
+    var count = new GlideAggregate('x_1620151_class_en_enrollments');
+    count.addQuery('section', classId);
+    count.addQuery('state', 'approved');
+    count.addAggregate('COUNT');
+    count.query();
+    
+    return count.next() ? parseInt(count.getAggregate('COUNT'), 10) : 0;
+  }
+  
+  // Function to get students for a class
+  function getStudents() {
+    var classId = input.classId;
+    var students = [];
+    
+    if (!classId) {
+      return {
+        data: {
+          students: []
+        }
+      };
+    }
+    
+    var enrollmentGR = new GlideRecord('x_1620151_class_en_enrollments');
+    enrollmentGR.addQuery('section', classId);
+    enrollmentGR.orderBy('sys_created_on');
+    enrollmentGR.query();
+    
+    while (enrollmentGR.next()) {
+      var studentGR = new GlideRecord('sys_user');
+      if (studentGR.get(enrollmentGR.getValue('student'))) {
+        var enrollmentDate = new GlideDateTime(enrollmentGR.sys_created_on);
+        
+        students.push({
+          sys_id: studentGR.getUniqueValue(),
+          name: studentGR.getDisplayValue(),
+          email: studentGR.getValue('email'),
+          enrollment_date: enrollmentDate.getDisplayValue(),
+          status: enrollmentGR.getValue('state')
+        });
+      }
+    }
+    
+    return {
+      data: {
+        students: students
+      }
+    };
+  }
+  
+  // Function to request assignment to a class
+  function requestAssignment() {
+    var classId = input.classId;
+    var notes = input.notes;
+    var currentUser = gs.getUserID();
+    
+    if (!classId) {
+      return {
+        data: {
+          success: false,
+          message: "No class ID provided."
+        }
+      };
+    }
+    
+    // Verify class exists and is unassigned
+    var classGR = new GlideRecord('x_1620151_class_en_classes');
+    if (!classGR.get(classId)) {
+      return {
+        data: {
+          success: false,
+          message: "Class not found."
+        }
+      };
+    }
+    
+    if (classGR.getValue('teacher')) {
+      return {
+        data: {
+          success: false,
+          message: "This class is already assigned to a teacher."
+        }
+      };
+    }
+    
+    try {
+      // Create an assignment request record
+      // Note: In a real implementation, you'd create a custom table for this
+      // For simplicity, we're using a workflow or approval directly
+      
+      // Option 1: Direct assignment if no approval needed
+      // classGR.setValue('teacher', currentUser);
+      // classGR.update();
+      
+      // Option 2: Create an assignment request
+      var requestGR = new GlideRecord('x_1620151_class_en_assignment_requests');
+      requestGR.initialize();
+      requestGR.setValue('teacher', currentUser);
+      requestGR.setValue('class', classId);
+      requestGR.setValue('notes', notes);
+      requestGR.setValue('state', 'requested');
+      requestGR.insert();
+      
+      // Notify administrators of the request
+      // gs.eventQueue('class.assignment.requested', requestGR);
+      
+      return {
+        data: {
+          success: true,
+          message: "Assignment request submitted successfully."
+        }
+      };
+    } catch(e) {
+      return {
+        data: {
+          success: false,
+          message: "Error: " + e
+        }
+      };
+    }
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:59:40</sys_created_on>
+        <sys_id>7193280c47692250b3a2f884116d43a4</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>CEM Teacher Class Dashboard</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_7193280c47692250b3a2f884116d43a4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 13:01:25</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary teacher-dashboard-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <i class="fa fa-chalkboard-teacher"></i> My Classes
+    </h3>
+  </div>
+  <div class="panel-body">
+    <!-- Loading state -->
+    <div ng-if="c.loading" class="text-center p-3">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+      <p>Loading your classes...</p>
+    </div>
+    
+    <!-- Tabs navigation -->
+    <ul class="nav nav-tabs" ng-if="!c.loading">
+      <li ng-class="{active: c.activeTab === 'assigned'}" ng-click="c.setActiveTab('assigned')">
+        <a href="javascript:void(0)">
+          <i class="fa fa-user-check"></i> My Assigned Classes
+          <span class="badge">{{c.data.assignedClasses.length}}</span>
+        </a>
+      </li>
+      <li ng-class="{active: c.activeTab === 'unassigned'}" ng-click="c.setActiveTab('unassigned')">
+        <a href="javascript:void(0)">
+          <i class="fa fa-user-plus"></i> Unassigned Classes
+          <span class="badge">{{c.data.unassignedClasses.length}}</span>
+        </a>
+      </li>
+    </ul>
+    
+    <!-- Assigned classes tab -->
+    <div ng-if="!c.loading && c.activeTab === 'assigned'" class="tab-content">
+      <!-- No assigned classes message -->
+      <div ng-if="c.data.assignedClasses.length === 0" class="alert alert-info m-t-15">
+        <i class="fa fa-info-circle"></i> You don't have any assigned classes yet.
+      </div>
+      
+      <!-- Class cards -->
+      <div ng-if="c.data.assignedClasses.length > 0" class="row m-t-15">
+        <div ng-repeat="classItem in c.data.assignedClasses" class="col-md-6 col-lg-4">
+          <div class="class-card">
+            <div class="class-header">
+              <h4>{{classItem.section}}</h4>
+              <span class="badge class-count-badge" 
+                    ng-class="{'badge-danger': classItem.student_count >= 20, 'badge-warning': classItem.student_count >= 15 && classItem.student_count < 20, 'badge-success': classItem.student_count < 15}">
+                {{classItem.student_count}}/20 Students
+              </span>
+            </div>
+            <div class="class-courses">
+              <h5>Courses:</h5>
+              <ul class="list-unstyled">
+                <li ng-repeat="course in classItem.courses">
+                  <i class="fa fa-book"></i> {{course.course_id}}: {{course.name}} ({{course.units}} units)
+                </li>
+              </ul>
+            </div>
+            <div class="class-footer">
+              <button class="btn btn-primary" ng-click="c.viewStudents(classItem)">
+                <i class="fa fa-users"></i> View Students
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Unassigned classes tab -->
+    <div ng-if="!c.loading && c.activeTab === 'unassigned'" class="tab-content">
+      <!-- No unassigned classes message -->
+      <div ng-if="c.data.unassignedClasses.length === 0" class="alert alert-info m-t-15">
+        <i class="fa fa-info-circle"></i> There are no unassigned classes available.
+      </div>
+      
+      <!-- Unassigned class table -->
+      <div ng-if="c.data.unassignedClasses.length > 0" class="table-responsive m-t-15">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Courses</th>
+              <th>Students</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="classItem in c.data.unassignedClasses">
+              <td>{{classItem.section}}</td>
+              <td>
+                <span ng-repeat="course in classItem.courses">
+                  {{course.course_id}}{{$last ? '' : ', '}}
+                </span>
+              </td>
+              <td>{{classItem.student_count}}/20</td>
+              <td>
+                <button class="btn btn-primary btn-sm" ng-click="c.requestAssignment(classItem)" ng-disabled="c.processing">
+                  <i class="fa fa-hand-point-up"></i> Request Assignment
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Student List Modal -->
+<div class="modal" ng-if="c.showStudentModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Students in {{c.selectedClass.section}}</h4>
+        <button type="button" class="close" ng-click="c.closeStudentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Loading students -->
+        <div ng-if="c.loadingStudents" class="text-center p-3">
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+          <p>Loading student information...</p>
+        </div>
+        
+        <!-- No students message -->
+        <div ng-if="!c.loadingStudents && (!c.students || c.students.length === 0)" class="alert alert-info">
+          <i class="fa fa-info-circle"></i> No students are currently enrolled in this class.
+        </div>
+        
+        <!-- Student table -->
+        <div ng-if="!c.loadingStudents && c.students.length > 0" class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Enrollment Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="student in c.students">
+                <td>{{student.name}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.enrollment_date}}</td>
+                <td>
+                  <span class="badge" ng-class="{'badge-success': student.status === 'approved', 'badge-warning': student.status === 'requested', 'badge-danger': student.status === 'rejected'}">
+                    {{student.status}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="c.closeStudentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Assignment Request Modal -->
+<div class="modal" ng-if="c.showAssignmentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Request Class Assignment</h4>
+        <button type="button" class="close" ng-click="c.closeAssignmentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          <p>You're requesting to be assigned to:</p>
+          <ul>
+            <li><strong>Section:</strong> {{c.selectedClass.section}}</li>
+            <li>
+              <strong>Courses:</strong> 
+              <span ng-repeat="course in c.selectedClass.courses">
+                {{course.course_id}}: {{course.name}}{{$last ? '' : ', '}}
+              </span>
+            </li>
+            <li><strong>Students enrolled:</strong> {{c.selectedClass.student_count}}/20</li>
+          </ul>
+        </div>
+        
+        <div class="form-group">
+          <label for="request-notes">Request Notes (optional):</label>
+          <textarea id="request-notes" class="form-control" ng-model="c.requestNotes" rows="3" 
+                    placeholder="Provide any additional information for administrators regarding your assignment request..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="c.closeAssignmentModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="c.submitAssignmentRequest()" ng-disabled="c.processing">
+          <i class="fa fa-paper-plane"></i> Submit Request
+        </button>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>7193280c47692250b3a2f884116d43a4</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 12:59:40</sys_created_on>
+        <sys_id>7993280c47692250b3a2f884116d43a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 12:59:40</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

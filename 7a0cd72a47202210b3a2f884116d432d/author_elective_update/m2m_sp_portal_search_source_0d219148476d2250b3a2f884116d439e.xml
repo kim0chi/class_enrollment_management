@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_search_source">
+    <m2m_sp_portal_search_source action="DELETE">
+        <order>100</order>
+        <sp_portal display_value="Class Enrollment Portal">363509c4471d6210b3a2f884116d4391</sp_portal>
+        <sp_search_source display_value="Catalogs">c96eb1686721220023c82e08f585efff</sp_search_source>
+        <sys_class_name>m2m_sp_portal_search_source</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 16:18:41</sys_created_on>
+        <sys_id>0d219148476d2250b3a2f884116d439e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Class Enrollment Portal.Catalogs</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>m2m_sp_portal_search_source_0d219148476d2250b3a2f884116d439e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 16:18:41</sys_updated_on>
+    </m2m_sp_portal_search_source>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>d30ba5c69314aa1cd9f6ddd548373c61</instance_id>
+        <instance_name>dev299912</instance_name>
+        <name>m2m_sp_portal_search_source_0d219148476d2250b3a2f884116d439e</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_search_source"><m2m_sp_portal_search_source action="INSERT_OR_UPDATE"><order>100</order><sp_portal display_value="Class Enrollment Portal">363509c4471d6210b3a2f884116d4391</sp_portal><sp_search_source display_value="Catalogs">c96eb1686721220023c82e08f585efff</sp_search_source><sys_class_name>m2m_sp_portal_search_source</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-05-11 16:18:41</sys_created_on><sys_id>0d219148476d2250b3a2f884116d439e</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Class Enrollment Portal.Catalogs</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>m2m_sp_portal_search_source_0d219148476d2250b3a2f884116d439e</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-05-11 16:18:41</sys_updated_on></m2m_sp_portal_search_source></record_update>]]></payload>
+        <payload_hash>848248035</payload_hash>
+        <record_name>Class Enrollment Portal.Catalogs</record_name>
+        <reverted_from/>
+        <source>ddbc9b2347012210b3a2f884116d43c0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 16:18:41</sys_created_on>
+        <sys_id>95215948476d2250b3a2f884116d4319</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196c0243a4c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 16:18:41</sys_updated_on>
+        <type>Search Source</type>
+        <update_guid>d5219148e66d2250794796ff446f84a2</update_guid>
+        <update_guid_history>d5219148e66d2250794796ff446f84a2:848248035</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Class Enrollment Portal.Catalogs">cb225948476d2250b3a2f884116d4320</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 16:23:11</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_portal_search_source">m2m_sp_portal_search_source</sys_db_object>
+        <sys_id>0369c263f2e84d199b9e7f989faf46c9</sys_id>
+        <sys_metadata>0d219148476d2250b3a2f884116d439e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Class Enrollment Portal.Catalogs</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_search_source_0d219148476d2250b3a2f884116d439e</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_search_source_0d219148476d2250b3a2f884116d439e">95215948476d2250b3a2f884116d4319</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 16:23:11</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

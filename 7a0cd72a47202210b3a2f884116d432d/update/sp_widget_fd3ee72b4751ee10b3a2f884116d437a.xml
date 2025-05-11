@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.quick-links-widget {
+  background-color: transparent;
+  padding: 10px;
+  text-align: center;
+}
+
+.quick-links-section {
+  padding: 20px;
+}
+
+.quick-links-section h4 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: 500;
+  font-size: 22px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.quick-link-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quick-link-item:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.quick-link-item i {
+  margin-right: 10px;
+  font-size: 18px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cem_quick_links</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Quick Links</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // Determine user role and set appropriate quick links
+  var user = gs.getUser();
+  data.quickLinks = [];
+  
+  if (user.hasRole('x_1620151_class_en.student_role')) {
+    data.quickLinks = [
+      { label: "Browse Courses", icon: "fa-book", url: "#" },
+      { label: "My Enrollments", icon: "fa-clipboard-list", url: "#" },
+      { label: "My Schedule", icon: "fa-calendar-alt", url: "#" }
+    ];
+  } 
+  else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+    data.quickLinks = [
+      { label: "My Classes", icon: "fa-chalkboard", url: "#" },
+      { label: "Student Roster", icon: "fa-users", url: "#" },
+      { label: "Unassigned Classes", icon: "fa-clipboard-check", url: "#" }
+    ];
+  } 
+  else if (user.hasRole('x_1620151_class_en.admin_role')) {
+    data.quickLinks = [
+      { label: "Manage Courses", icon: "fa-book-open", url: "#" },
+      { label: "Pending Approvals", icon: "fa-tasks", url: "#" },
+      { label: "Assign Teachers", icon: "fa-user-plus", url: "#" },
+      { label: "Reports", icon: "fa-chart-bar", url: "#" }
+    ];
+  } 
+  else {
+    data.quickLinks = [
+      { label: "Contact Support", icon: "fa-question-circle", url: "#" }
+    ];
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 14:27:59</sys_created_on>
+        <sys_id>fd3ee72b4751ee10b3a2f884116d437a</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CEM Quick Links</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_fd3ee72b4751ee10b3a2f884116d437a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 14:34:32</sys_updated_on>
+        <template><![CDATA[<div class="quick-links-widget">
+  <div class="quick-links-section">
+    <h4>Quick Links</h4>
+    <div class="quick-links">
+      <a ng-repeat="link in c.data.quickLinks" 
+         href="{{link.url}}" 
+         class="quick-link-item">
+        <i class="fa {{link.icon}}"></i>
+        <span>{{link.label}}</span>
+      </a>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>fd3ee72b4751ee10b3a2f884116d437a</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-10 14:27:59</sys_created_on>
+        <sys_id>f53ee72b4751ee10b3a2f884116d437d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-10 14:27:59</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

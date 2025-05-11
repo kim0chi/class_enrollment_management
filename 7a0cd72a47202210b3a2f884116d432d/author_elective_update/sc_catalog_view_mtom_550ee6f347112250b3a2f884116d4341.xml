@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_catalog_view_mtom">
+    <sc_catalog_view_mtom action="DELETE">
+        <default>true</default>
+        <sc_catalog display_value="Class Enrollment">b4adeeb347112250b3a2f884116d432e</sc_catalog>
+        <sys_class_name>sc_catalog_view_mtom</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 04:25:59</sys_created_on>
+        <sys_id>550ee6f347112250b3a2f884116d4341</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Class Enrollment.catalog_class_enrollment</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_portal_page display_value="catalog_class_enrollment">5d0ee6f347112250b3a2f884116d433f</sys_portal_page>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sc_catalog_view_mtom_550ee6f347112250b3a2f884116d4341</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 04:25:59</sys_updated_on>
+    </sc_catalog_view_mtom>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</application>
+        <file_path/>
+        <instance_id>d30ba5c69314aa1cd9f6ddd548373c61</instance_id>
+        <instance_name>dev299912</instance_name>
+        <name>sc_catalog_view_mtom_550ee6f347112250b3a2f884116d4341</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_catalog_view_mtom"><sc_catalog_view_mtom action="INSERT_OR_UPDATE"><default>true</default><sc_catalog display_value="Class Enrollment">b4adeeb347112250b3a2f884116d432e</sc_catalog><sys_class_name>sc_catalog_view_mtom</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-05-11 04:25:59</sys_created_on><sys_id>550ee6f347112250b3a2f884116d4341</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Class Enrollment.catalog_class_enrollment</sys_name><sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package><sys_policy/><sys_portal_page display_value="catalog_class_enrollment">5d0ee6f347112250b3a2f884116d433f</sys_portal_page><sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope><sys_update_name>sc_catalog_view_mtom_550ee6f347112250b3a2f884116d4341</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-05-11 04:25:59</sys_updated_on></sc_catalog_view_mtom></record_update>]]></payload>
+        <payload_hash>-349963497</payload_hash>
+        <record_name>Class Enrollment.catalog_class_enrollment</record_name>
+        <reverted_from/>
+        <source>ddbc9b2347012210b3a2f884116d43c0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 04:26:00</sys_created_on>
+        <sys_id>910ee6f347112250b3a2f884116d4344</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>196bd97bc540000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 04:26:00</sys_updated_on>
+        <type>Catalog Portal Page</type>
+        <update_guid>550ee6f378112250af46cfe47e7dd543</update_guid>
+        <update_guid_history>550ee6f378112250af46cfe47e7dd543:-349963497</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Class Enrollment.catalog_class_enrollment">088032f747112250b3a2f884116d4362</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 04:36:50</sys_created_on>
+        <sys_db_object display_value="" name="sc_catalog_view_mtom">sc_catalog_view_mtom</sys_db_object>
+        <sys_id>90ae2f188d814ef29600b082838968c4</sys_id>
+        <sys_metadata>550ee6f347112250b3a2f884116d4341</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Class Enrollment.catalog_class_enrollment</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_scope_delete display_value="">2b1551fbc3cc4509a75d1cb917ad6929</sys_scope_delete>
+        <sys_update_name>sc_catalog_view_mtom_550ee6f347112250b3a2f884116d4341</sys_update_name>
+        <sys_update_version display_value="sc_catalog_view_mtom_550ee6f347112250b3a2f884116d4341">910ee6f347112250b3a2f884116d4344</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 04:36:50</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

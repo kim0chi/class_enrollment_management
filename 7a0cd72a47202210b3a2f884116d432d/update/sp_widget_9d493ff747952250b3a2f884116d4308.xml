@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function AppointmentFormController($scope, $location, $sp) {
+    var c = this;
+
+    // Fetch the catalog item sys_id from the server script
+    $scope.catalogItemSysId = '5c0120fbc3d96210f21d71fdd401310a'; // sys_id of the catalog item
+
+    // Fetch catalog item details using $sp service
+    $scope.catalogItem = $sp.getCatalogItem($scope.catalogItemSysId);
+
+    // Function to handle form submission
+    $scope.submitForm = function() {
+        var formData = {
+            visitor_name: $scope.data.visitor_name,
+            inmate_name: $scope.data.inmate_name,
+            visit_date_time: $scope.data.visit_date_time,
+            reason_for_visit: $scope.data.reason_for_visit,
+            number_of_visitors: $scope.data.number_of_visitors,
+            identity_proof: $scope.data.identity_proof,
+            email_address: $scope.data.email_address,
+            mobile_number: $scope.data.mobile_number,
+            visitor_type: $scope.data.relationship, // Guest or Family
+            area: $scope.data.area
+        };
+
+        // Call the server script to save the data
+        $sp.saveFormData(formData).then(function(response) {
+            // Handle success (e.g., navigate to a confirmation page)
+            $location.url('/confirmation');
+        }).catch(function(error) {
+            // Handle error (e.g., show an error message)
+            console.error('Error saving data:', error);
+        });
+    };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.calendar-header-box {
+    background: linear-gradient(135deg, #004080, #0066cc);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .calendar-header {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 1;
+  }
+
+  .appointment-container {
+    background-color: #ffffff;
+    padding: 20px 40px 40px 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .section {
+    background-color: #ffffff;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .section-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 18px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .submit-btn {
+    background-color: #005691;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    display: block;
+    margin: 30px auto 0;
+    max-width: 350px;
+    transition: background-color 0.3s;
+  }
+
+  .submit-btn:hover {
+    background-color: #004677;
+  }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>test</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>test</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    // Fetch the catalog item sys_id from the request
+    var catalogItemSysId = $sp.getParameter('catalogItemSysId') || '5c0120fbc3d96210f21d71fdd401310a'; // The sys_id for Jail Visit Appointment Details
+
+    // Fetch catalog item details using sys_id
+    var gr = new GlideRecord('sc_cat_item');
+    if (gr.get(catalogItemSysId)) {
+        // If the catalog item exists, fetch its details
+        data.item = {};
+        data.item.name = gr.name;
+        data.item.short_description = gr.short_description;
+        data.item.picture = gr.picture;
+        data.item.price = gr.price;
+        data.item.sys_id = gr.sys_id;
+        data.item.hasPrice = gr.show_price;
+        data.item.type = gr.type;
+        data.item.order = gr.order;
+        data.item.category = gr.category.sys_id;
+        data.item.sys_class_name = gr.sys_class_name;
+        data.item.page = 'sc_cat_item';  // Set the page if needed
+
+        // Additional logic for different types of catalog items
+        if (data.item.type == 'order_guide') {
+            data.item.page = 'sc_cat_item_guide';
+        } else if (data.item.type == 'content_item') {
+            data.item.content_type = gr.content_type;
+            data.item.url = gr.url;
+            if (data.item.content_type == 'kb') {
+                data.item.kb_article = gr.kb_article;
+                data.item.page = 'kb_article';
+                data.item.sys_id = data.item.kb_article;
+            } else if (data.item.content_type == 'external') {
+                data.item.target = '_blank';
+            }
+        }
+
+        // Now save the appointment data into the Scheduled Appointments table
+        var appointmentRecord = new GlideRecord('x_1620144_jail_vis_scheduled_appointments');
+        appointmentRecord.initialize();  // Initialize the record to be inserted
+
+        // Map the form data to the appointment record fields
+        appointmentRecord.applicant = $sp.getParameter('visitor_name');
+        appointmentRecord.inmate = $sp.getParameter('inmate_name');
+        appointmentRecord.date_time = $sp.getParameter('visit_date_time');
+        appointmentRecord.reason_inquiry = $sp.getParameter('reason_for_visit');
+        appointmentRecord.number_of_visitors = $sp.getParameter('number_of_visitors');
+        appointmentRecord.identity_proof = $sp.getParameter('identity_proof');
+        appointmentRecord.visitor_email_address = $sp.getParameter('email_address');
+        appointmentRecord.visitor_mobile_number = $sp.getParameter('mobile_number');
+        appointmentRecord.visitor_type = $sp.getParameter('visitor_type');
+        appointmentRecord.area = $sp.getParameter('area');
+
+        // Link the catalog item sys_id to the record
+        appointmentRecord.catalog_item_sys_id = catalogItemSysId;
+
+        // Insert the record into the Scheduled Appointments table
+        appointmentRecord.insert();
+
+        // Return success
+        data.success = true;
+
+    } else {
+        // Handle the case where the catalog item is not found
+        data.error = 'Catalog item not found.';
+    }
+})(data);]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 09:54:45</sys_created_on>
+        <sys_id>9d493ff747952250b3a2f884116d4308</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>test</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_9d493ff747952250b3a2f884116d4308</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 09:55:26</sys_updated_on>
+        <template><![CDATA[<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Styles -->
+
+
+<div ng-controller="AppointmentFormController">
+    <!-- Header -->
+    <div class="calendar-header-box">
+        <h1 class="calendar-header">Schedule a Visit</h1>
+    </div>
+
+    <!-- Form Container -->
+    <div class="appointment-container">
+        <div class="section">
+            <div class="section-header">Visitor Details</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Visitor Name <span class="required">*</span></label>
+                    <input type="text" ng-model="data.visitor_name" placeholder="Enter your Name">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Number of Visitors <span class="required">*</span></label>
+                    <input type="number" ng-model="data.number_of_visitors" placeholder="Enter number of visitors">
+                </div>
+                <div class="form-group">
+                    <label>Relationship <span class="required">*</span></label>
+                    <select ng-model="data.relationship">
+                        <option value="">SELECT</option>
+                        <option value="guest">Guest</option>
+                        <option value="family">Family</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Identity Proof</label>
+                    <select ng-model="data.identity_proof">
+                        <option value="">SELECT</option>
+                        <option value="passport">Passport</option>
+                        <option value="drivers_license">Driver's License</option>
+                        <option value="id_card">National ID</option>
+                    </select>
+                </div>
+              
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" ng-model="data.email_address" placeholder="Enter your Email Address">
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number <span class="required">*</span></label>
+                    <input type="text" ng-model="data.mobile_number" placeholder="Enter your Mobile Number">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Inmate Details</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Inmate Name <span class="required">*</span></label>
+                    <input type="text" ng-model="data.inmate_name" placeholder="Enter Inmate Name">
+                </div>
+                <div class="form-group">
+                    <label>Area <span class="required">*</span></label>
+                    <select ng-model="data.area">
+                        <option value="">SELECT</option>
+                        <option value="public_visitation">Public Visitation</option>
+                        <option value="group_visitation">Group Visitation</option>
+                        <option value="private_visitation">Private Visitation</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Visit Date and Time <span class="required">*</span></label>
+                    <input type="datetime-local" ng-model="data.visit_date_time">
+                </div>
+                <div class="form-group">
+                    <label>Reason for Visit <span class="required">*</span></label>
+                    <input type="text" ng-model="data.reason_for_visit" placeholder="Enter reason for visit">
+                </div>
+            </div>
+        </div>
+
+        <button class="submit-btn" ng-click="submitForm()">Schedule Appointment</button>
+    </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>9d493ff747952250b3a2f884116d4308</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-11 09:54:46</sys_created_on>
+        <sys_id>5d493ff747952250b3a2f884116d430c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-11 09:54:46</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

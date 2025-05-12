@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>POST</http_method>
+        <name>approve_enrollment</name>
+        <operation_script><![CDATA[(function process(request, response) {
+    // Debug logging
+    gs.info('REST API call received for enrollment approval');
+    gs.info('Request body: ' + JSON.stringify(request.body));
+    
+    // Get parameters directly from request.body
+    var enrollmentId = request.body.enrollmentId;
+    var action = request.body.action; // 'approve' or 'reject'
+    
+    gs.info('Processing enrollmentId: ' + enrollmentId + ', action: ' + action);
+    
+    // Initialize result object
+    var result = {
+        success: false,
+        message: ''
+    };
+    
+    // Validate required parameters
+    if (!enrollmentId || !action) {
+        gs.error('Missing required parameters');
+        result.message = 'Missing required parameters';
+        return response.setBody({result: result});
+    }
+    
+    try {
+        // Check permissions - using the correct role name CEM-Admin
+        if (!gs.hasRole('admin') && !gs.hasRole('CEM-Admin')) {
+            gs.error('Permission denied for user: ' + gs.getUserName());
+            result.message = 'Permission denied: Administrative privileges required';
+            return response.setBody({result: result});
+        }
+        
+        // First check if the enrollment exists
+        var checkGR = new GlideRecord('x_1620151_class_en_enrollments');
+        if (!checkGR.get(enrollmentId)) {
+            gs.error('Enrollment record not found: ' + enrollmentId);
+            result.message = 'Enrollment record not found';
+            return response.setBody({result: result});
+        }
+        
+        // Get current student and section for constraint checks
+        var studentId = checkGR.getValue('student');
+        var sectionId = checkGR.getValue('section');
+        var courseId = checkGR.getValue('course');
+        
+        gs.info('Found enrollment for student: ' + checkGR.getDisplayValue('student') + 
+               ', course: ' + checkGR.getDisplayValue('course') + 
+               ', current state: ' + checkGR.getValue('state'));
+        
+        // Process based on action
+        if (action === 'approve') {
+            // Check class capacity
+            var enrollCount = new GlideAggregate('x_1620151_class_en_enrollments');
+            enrollCount.addQuery('section', sectionId);
+            enrollCount.addQuery('state', 'enrolled');
+            enrollCount.addAggregate('COUNT');
+            enrollCount.query();
+            
+            var count = 0;
+            if (enrollCount.next()) {
+                count = parseInt(enrollCount.getAggregate('COUNT'), 10);
+            }
+            
+            gs.info('Current class enrollment count: ' + count);
+            
+            if (count >= 20) {
+                gs.info('Class capacity exceeded');
+                result.message = 'Cannot approve: Class has reached maximum capacity of 20 students.';
+                return response.setBody({result: result});
+            }
+            
+            // Check unit limit
+            var totalUnits = 0;
+            var newUnits = 0;
+            
+            var courseGr = new GlideRecord('x_1620151_class_en_courses');
+            if (courseGr.get(courseId)) {
+                newUnits = parseInt(courseGr.getValue('units')) || 0;
+                gs.info('Course units: ' + newUnits);
+                
+                // Get student's current approved enrollments
+                var enrollGr = new GlideRecord('x_1620151_class_en_enrollments');
+                enrollGr.addQuery('student', studentId);
+                enrollGr.addQuery('state', 'enrolled');
+                enrollGr.addQuery('sys_id', '!=', enrollmentId); // Exclude current enrollment
+                enrollGr.query();
+                
+                while (enrollGr.next()) {
+                    var enrolledCourse = new GlideRecord('x_1620151_class_en_courses');
+                    if (enrolledCourse.get(enrollGr.getValue('course'))) {
+                        var courseUnits = parseInt(enrolledCourse.getValue('units')) || 0;
+                        totalUnits += courseUnits;
+                        gs.info('Found existing enrollment for course: ' + enrolledCourse.getDisplayValue() + 
+                               ', Units: ' + courseUnits);
+                    }
+                }
+                
+                gs.info('Total existing units: ' + totalUnits + ', New units: ' + newUnits);
+                
+                if (totalUnits + newUnits > 21) {
+                    gs.info('Unit limit exceeded');
+                    result.message = 'Cannot approve: Exceeds student\'s unit limit of 21. Current units: ' + 
+                                  totalUnits + ', Course units: ' + newUnits;
+                    return response.setBody({result: result});
+                }
+            }
+            
+            // All checks passed, approve enrollment
+            var gr = new GlideRecord('x_1620151_class_en_enrollments');
+            if (gr.get(enrollmentId)) {
+                gr.state = 'enrolled';
+                gr.work_notes = 'Approved by ' + gs.getUserName() + ' on ' + 
+                             new GlideDateTime().getDisplayValue();
+                
+                var updateSuccess = gr.update();
+                gs.info('Enrollment update result: ' + (updateSuccess ? 'Success' : 'Failed'));
+                
+                if (updateSuccess) {
+                    result.success = true;
+                    result.message = 'Enrollment approved successfully';
+                } else {
+                    result.message = 'Failed to update enrollment record: ' + gs.getMessage();
+                }
+            } else {
+                result.message = 'Could not retrieve enrollment record';
+            }
+        } else if (action === 'reject') {
+            // Reject enrollment
+            var gr = new GlideRecord('x_1620151_class_en_enrollments');
+            if (gr.get(enrollmentId)) {
+                gr.state = 'not_enrolled';
+                gr.work_notes = 'Rejected by ' + gs.getUserName() + ' on ' + 
+                             new GlideDateTime().getDisplayValue();
+                
+                var rejectSuccess = gr.update();
+                gs.info('Enrollment rejection result: ' + (rejectSuccess ? 'Success' : 'Failed'));
+                
+                if (rejectSuccess) {
+                    result.success = true;
+                    result.message = 'Enrollment rejected successfully';
+                } else {
+                    result.message = 'Failed to update enrollment record: ' + gs.getMessage();
+                }
+            } else {
+                result.message = 'Could not retrieve enrollment record';
+            }
+        } else {
+            result.message = 'Invalid action specified. Use "approve" or "reject".';
+        }
+    } catch (e) {
+        gs.error('Error in enrollment approval API: ' + e);
+        result.message = 'Error: ' + e;
+    }
+    
+    gs.info('Returning result: ' + JSON.stringify(result));
+    return response.setBody({result: result});
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_1620151_class_en/enrollment_approval_api/approve</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/approve</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-12 12:42:34</sys_created_on>
+        <sys_id>1ab8259c4765a250b3a2f884116d4312</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>approve_enrollment</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sys_ws_operation_1ab8259c4765a250b3a2f884116d4312</sys_update_name>
+        <sys_updated_by>cem_admin.John</sys_updated_by>
+        <sys_updated_on>2025-05-12 15:47:46</sys_updated_on>
+        <web_service_definition display_value="Enrollment Approval API">e898219c4765a250b3a2f884116d430c</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

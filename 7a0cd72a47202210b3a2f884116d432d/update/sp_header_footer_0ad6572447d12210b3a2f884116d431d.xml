@@ -278,14 +278,14 @@ $scope.$watch(function() {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-01 05:07:28</sys_created_on>
         <sys_id>0ad6572447d12210b3a2f884116d431d</sys_id>
-        <sys_mod_count>79</sys_mod_count>
+        <sys_mod_count>80</sys_mod_count>
         <sys_name>CEM Header</sys_name>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sp_header_footer_0ad6572447d12210b3a2f884116d431d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-12 10:47:39</sys_updated_on>
+        <sys_updated_on>2025-05-12 16:00:56</sys_updated_on>
         <template><![CDATA[<div class="cem-header">
   <div class="container">
     <div class="header-content">
@@ -312,9 +312,7 @@ $scope.$watch(function() {
     <!-- Administrator Navigation -->
     <div ng-if="data.userRole == 'admin'">
         <a href="?id=cem_my_approvals">My Approvals</a> |
-        <a href="#/idceu_course_management">Course Management</a> |
         <a href="#/idceu_class_management">Class Management</a> |
-        <a href="#/idceu_my_classes">My Classes</a> |
         <a href="#/idceu_unassigned_classes">Unassigned Classes</a> |
         <a href="#/idceu_enrollment_requests">Enrollment Requests</a> |
         <a href="#/idceu_available_courses">Available Courses</a> |

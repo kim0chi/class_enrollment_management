@@ -29,37 +29,42 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
     const MAX_UNITS = 21;
-	var totalUnits = 0;
+    var totalUnits = 0;
+    var dupeEnrollment = false;
 
     var gr = new GlideRecord('x_1620151_class_en_enrollments');
     gr.addQuery('student', current.student);
     gr.query();
 
-    // add units of the course student is ALREADY enrolled in
+    // check if course is already enrolled
     while (gr.next()) {
         var courseRecord = new GlideRecord('x_1620151_class_en_courses');
         if (courseRecord.get(gr.course_id)) {
+			// check if student is already enrolled so no double count
+            if (gr.course_id.toString() === current.course_id.toString()) {
+                dupeEnrollment = true;
+            }
             totalUnits += parseInt(courseRecord.units || 0);
         }
     }
 
-    // add units of the course that is BEING enrolled in
-    var newCourseRecord = new GlideRecord('x_1620151_class_en_courses');
-    if (newCourseRecord.get(current.course_id)) {
-        totalUnits += parseInt(newCourseRecord.units || 0);
+    // add units for non-duplicate enrollments
+    if (!dupeEnrollment) {
+        var newCourseRecord = new GlideRecord('x_1620151_class_en_courses');
+        if (newCourseRecord.get(current.course_id)) {
+            totalUnits += parseInt(newCourseRecord.units || 0);
+        }
     }
 
-    // if total units exceed the maximum number of units, show error and abort
     if (totalUnits > MAX_UNITS) {
-        gs.addErrorMessage('Adding this course will give this student ' + totalUnits + ' units! Students can only have a max total of ' + MAX_UNITS + ' units.');
+        gs.addErrorMessage('Students can only have a max total of ' + MAX_UNITS + ' units.');
         current.setAbortAction(true);
     } else if (totalUnits < MAX_UNITS) {
-		var remainingUnits = MAX_UNITS - totalUnits;
-
-		gs.addInfoMessage('That student currently has ' + totalUnits + ' units. You can still add ' + remainingUnits + ' units.');
-	} else {
-		gs.addInfoMessage('That student has the maximum number of units.');
-	}
+        var remainingUnits = MAX_UNITS - totalUnits;
+        gs.addInfoMessage('That student currently has ' + totalUnits + ' units. You can still add ' + remainingUnits + ' units.');
+    } else {
+        gs.addInfoMessage('That student has the maximum number of units.');
+    }
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -67,15 +72,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>4c113b79c3f0221076f0f3cc0501319a</sys_id>
-        <sys_mod_count>37</sys_mod_count>
+        <sys_mod_count>39</sys_mod_count>
         <sys_name>Limit 21 Units Per Student</sys_name>
         <sys_overrides/>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sys_script_4c113b79c3f0221076f0f3cc0501319a</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-11 14:12:15</sys_updated_on>
+        <sys_updated_by>cem_admin.John</sys_updated_by>
+        <sys_updated_on>2025-05-12 14:09:28</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

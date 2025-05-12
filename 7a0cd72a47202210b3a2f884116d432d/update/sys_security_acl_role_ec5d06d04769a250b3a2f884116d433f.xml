@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-12 15:20:39</sys_created_on>
+        <sys_id>ec5d06d04769a250b3a2f884116d433f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.CEM-Admin</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_security_acl display_value="x_1620151_class_en_enrollments.state">224d8ad04769a250b3a2f884116d4391</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_ec5d06d04769a250b3a2f884116d433f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-12 15:20:39</sys_updated_on>
+        <sys_user_role display_value="CEM-Admin" name="CEM-Admin">d8dc9faa47202210b3a2f884116d4353</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

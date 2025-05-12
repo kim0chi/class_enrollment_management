@@ -6,17 +6,12 @@
     
     // Initialize variables
     c.loading = true;
-    c.noRecords = false;
     
     // Load initial data
     c.server.update().then(function() {
+        console.log('Data loaded:', c.data);
+        console.log('Pending enrollments:', c.data.pendingEnrollments);
         c.loading = false;
-        if (c.data.error) {
-            console.error(c.data.error);
-        }
-        if (!c.data.pendingEnrollments || c.data.pendingEnrollments.length === 0) {
-            c.noRecords = true;
-        }
     });
     
     // Refresh function
@@ -24,73 +19,148 @@
         c.loading = true;
         c.server.update().then(function() {
             c.loading = false;
-            if (!c.data.pendingEnrollments || c.data.pendingEnrollments.length === 0) {
-                c.noRecords = true;
-            } else {
-                c.noRecords = false;
-            }
         });
     };
     
-    // Approve enrollment function
+    // Approach 1: Using REST API
     c.approveEnrollment = function(enrollment, index) {
-        // Set processing flag on this specific enrollment
         enrollment.processing = true;
+        console.log('Approving enrollment:', enrollment.sys_id);
         
         $http({
-            method: 'PUT',
-            url: '/api/now/table/x_1620151_class_en_enrollments/' + enrollment.sys_id,
+            method: 'POST',
+            url: '/api/x_1620151_class_en/enrollment_approval_api/approve',
             data: {
-                state: 'Enrolled',
-                work_notes: 'Approved by administrator via approval widget'
+                enrollmentId: enrollment.sys_id,
+                action: 'approve'
             }
         }).then(function(response) {
-            spUtil.addInfoMessage("Enrollment approved successfully");
+            console.log('API response:', response.data);
             
-            // Remove the approved item from the local array immediately
-            c.data.pendingEnrollments.splice(index, 1);
-            
-            // Check if we need to show "no records" message
-            if (c.data.pendingEnrollments.length === 0) {
-                c.noRecords = true;
+            if (response.data.result && response.data.result.success) {
+                // Convert object to string if needed
+                var message = response.data.result.message;
+                if (typeof message !== 'string') {
+                    message = "Enrollment approved successfully";
+                }
+                spUtil.addInfoMessage(message);
+                
+                // Remove the approved item from the local array immediately
+                c.data.pendingEnrollments.splice(index, 1);
+            } else {
+                // Convert object to string if needed
+                var errorMsg = response.data.result ? response.data.result.message : "Error processing approval";
+                if (typeof errorMsg !== 'string') {
+                    errorMsg = "Error processing approval";
+                }
+                spUtil.addErrorMessage(errorMsg);
+                enrollment.processing = false;
             }
-            
         }, function(error) {
-            spUtil.addErrorMessage("Error approving enrollment: " + 
-                (error.data.error ? error.data.error.message : "Unknown error"));
+            console.error('API error:', error);
+            spUtil.addErrorMessage("Error processing approval");
             enrollment.processing = false;
         });
     };
     
-    // Reject enrollment function
     c.rejectEnrollment = function(enrollment, index) {
-        // Set processing flag on this specific enrollment
         enrollment.processing = true;
+        console.log('Rejecting enrollment:', enrollment.sys_id);
         
         $http({
-            method: 'PUT',
-            url: '/api/now/table/x_1620151_class_en_enrollments/' + enrollment.sys_id,
+            method: 'POST',
+            url: '/api/x_1620151_class_en/enrollment_approval_api/approve',
             data: {
-                state: 'Not Enrolled',
-                work_notes: 'Rejected by administrator via approval widget'
+                enrollmentId: enrollment.sys_id,
+                action: 'reject'
             }
         }).then(function(response) {
-            spUtil.addInfoMessage("Enrollment rejected successfully");
+            console.log('API response:', response.data);
             
-            // Remove the rejected item from the local array immediately
-            c.data.pendingEnrollments.splice(index, 1);
-            
-            // Check if we need to show "no records" message
-            if (c.data.pendingEnrollments.length === 0) {
-                c.noRecords = true;
+            if (response.data.result && response.data.result.success) {
+                // Convert object to string if needed
+                var message = response.data.result.message;
+                if (typeof message !== 'string') {
+                    message = "Enrollment rejected successfully";
+                }
+                spUtil.addInfoMessage(message);
+                
+                // Remove the rejected item from the local array immediately
+                c.data.pendingEnrollments.splice(index, 1);
+            } else {
+                // Convert object to string if needed
+                var errorMsg = response.data.result ? response.data.result.message : "Error processing rejection";
+                if (typeof errorMsg !== 'string') {
+                    errorMsg = "Error processing rejection";
+                }
+                spUtil.addErrorMessage(errorMsg);
+                enrollment.processing = false;
             }
-            
         }, function(error) {
-            spUtil.addErrorMessage("Error rejecting enrollment: " + 
-                (error.data.error ? error.data.error.message : "Unknown error"));
+            console.error('API error:', error);
+            spUtil.addErrorMessage("Error processing rejection");
             enrollment.processing = false;
         });
     };
+    
+    // Approach 2: Direct server function
+    c.approveEnrollmentDirect = function(enrollment, index) {
+        enrollment.processing = true;
+        console.log('Approving enrollment directly:', enrollment.sys_id);
+        
+        c.server.get({
+            action: 'updateEnrollment',
+            params: {
+                action: 'approve',
+                enrollmentId: enrollment.sys_id
+            }
+        }).then(function(response) {
+            console.log('Server response:', response.data);
+            
+            if (response.data.success) {
+                spUtil.addInfoMessage(response.data.message || "Approval successful");
+                c.data.pendingEnrollments.splice(index, 1);
+            } else {
+                spUtil.addErrorMessage(response.data.message || "Error processing approval");
+                enrollment.processing = false;
+            }
+        });
+    };
+    
+    c.rejectEnrollmentDirect = function(enrollment, index) {
+        enrollment.processing = true;
+        console.log('Rejecting enrollment directly:', enrollment.sys_id);
+        
+        c.server.get({
+            action: 'updateEnrollment',
+            params: {
+                action: 'reject',
+                enrollmentId: enrollment.sys_id
+            }
+        }).then(function(response) {
+            console.log('Server response:', response.data);
+            
+            if (response.data.success) {
+                spUtil.addInfoMessage(response.data.message || "Rejection successful");
+                c.data.pendingEnrollments.splice(index, 1);
+            } else {
+                spUtil.addErrorMessage(response.data.message || "Error processing rejection");
+                enrollment.processing = false;
+            }
+        });
+    };
+    
+    // Choose which method to use (REST API or direct server function)
+    // Uncomment the version you want to use:
+    
+    // Use REST API approach (default)
+    // Already defined above
+    
+    // Use direct server function approach
+    /*
+    c.approveEnrollment = c.approveEnrollmentDirect;
+    c.rejectEnrollment = c.rejectEnrollmentDirect;
+    */
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>.enrollment-approval-widget {
@@ -101,15 +171,24 @@
 .enrollment-approval-widget .panel-heading {
   background-color: #1976d2;
   color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .enrollment-approval-widget .panel-title {
   display: inline-block;
   margin-top: 2px;
   margin-bottom: 0;
+}
+
+.enrollment-approval-widget .panel-body {
+  padding: 15px;
+}
+
+.enrollment-approval-widget pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 11px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .enrollment-approval-widget .table {
@@ -156,11 +235,27 @@
   }
 }
 
-/* Success message styling */
-.alert-success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #3c763d;
+/* Alert styling */
+.enrollment-approval-widget .alert {
+  margin-bottom: 15px;
+}
+
+.enrollment-approval-widget .alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.enrollment-approval-widget .alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.enrollment-approval-widget .alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -178,99 +273,168 @@
         <script><![CDATA[(function() {
     // Initialize data structure
     data.pendingEnrollments = [];
+    data.error = null;
     
     try {
-        // Get proper table names to avoid errors
-        var enrollmentTable = 'x_1620151_class_en_enrollments';
-        var courseTable = 'x_1620151_class_en_courses'; // Make sure this is correct (plural/singular)
-        var classTable = 'x_1620151_class_en_classes'; // Make sure this is correct (plural/singular)
-        
-        // Use GlideRecordSecure to handle cross-scope access
-        var gr = new GlideRecordSecure(enrollmentTable);
-        gr.addQuery('state', 'Pending'); // Make sure this exactly matches your 'pending' state value
+        // Query enrollments with 'pending' state
+        var gr = new GlideRecord('x_1620151_class_en_enrollments');
+        gr.addQuery('state', 'pending');
         gr.orderByDesc('sys_created_on');
         gr.query();
         
-        while (gr.next()) {
-            try {
-                // Get student name
-                var studentName = '';
-                if (gr.student) {
-                    var studentGR = GlideRecord('sys_user');
-                    if (studentGR.get(gr.student)) {
-                        studentName = studentGR.getDisplayValue();
-                    } else {
-                        studentName = gr.student.getDisplayValue() || 'Unknown';
-                    }
-                }
-                
-                // Get course details
-                var courseId = '';
-                var courseName = '';
-                if (gr.course) {
-                    try {
-                        var courseGR = new GlideRecordSecure(courseTable);
-                        if (courseGR.get(gr.course)) {
-                            courseId = courseGR.getValue('course_id') || '';
-                            courseName = courseGR.getValue('course_name') || '';
-                        }
-                    } catch (courseErr) {
-                        gs.error('Error getting course data: ' + courseErr);
-                        courseId = 'Error';
-                        courseName = 'Could not load course';
-                    }
-                }
-                
-                // Get section details
-                var sectionName = '';
-                if (gr.section) {
-                    try {
-                        var sectionGR = new GlideRecordSecure(classTable);
-                        if (sectionGR.get(gr.section)) {
-                            sectionName = sectionGR.getValue('section') || '';
-                        }
-                    } catch (sectionErr) {
-                        gs.error('Error getting section data: ' + sectionErr);
-                        sectionName = 'Error';
-                    }
-                }
-                
-                // Add enrollment record to list
-                data.pendingEnrollments.push({
-                    sys_id: gr.getUniqueValue(),
-                    number: gr.getValue('number') || '',
-                    student_name: studentName,
-                    course_id: courseId,
-                    course_name: courseName,
-                    section: sectionName,
-                    created_date: gr.getDisplayValue('sys_created_on'),
-                    processing: false // Flag for UI state
-                });
-            } catch (recordErr) {
-                gs.error('Error processing enrollment record: ' + recordErr);
-            }
-        }
+        gs.info('Found ' + gr.getRowCount() + ' pending enrollments');
         
-        // Debug info
-        gs.info('Found ' + data.pendingEnrollments.length + ' pending enrollments');
+        while (gr.next()) {
+            var studentName = gr.getDisplayValue('student') || 'Unknown';
+            
+            var courseId = '';
+            var courseName = '';
+            var courseGR = new GlideRecord('x_1620151_class_en_courses');
+            if (courseGR.get(gr.getValue('course'))) {
+                courseId = courseGR.getValue('course_id') || '';
+                courseName = courseGR.getValue('course_name') || '';
+            }
+            
+            var sectionName = '';
+            var sectionGR = new GlideRecord('x_1620151_class_en_classes');
+            if (sectionGR.get(gr.getValue('section'))) {
+                sectionName = sectionGR.getValue('section') || '';
+            }
+            
+            data.pendingEnrollments.push({
+                sys_id: gr.getUniqueValue(),
+                number: gr.getValue('number') || '',
+                student_name: studentName,
+                course_id: courseId,
+                course_name: courseName,
+                section: sectionName,
+                created_date: gr.getDisplayValue('sys_created_on'),
+                processing: false
+            });
+        }
     } catch (e) {
-        gs.error('Error in CEM Admin Approval widget: ' + e);
-        data.error = 'Error loading enrollments: ' + e;
+        gs.error('Error loading enrollments: ' + e);
+        data.error = e.toString();
     }
+    
+    // Add function to directly update enrollments from client script
+    data.updateEnrollment = function(action, enrollmentId) {
+        try {
+            // Check permissions - using the correct role name CEM-Admin
+            if (!gs.hasRole('admin') && !gs.hasRole('CEM-Admin')) {
+                return {
+                    success: false,
+                    message: "Permission denied: Administrative privileges required"
+                };
+            }
+            
+            var gr = new GlideRecord('x_1620151_class_en_enrollments');
+            if (gr.get(enrollmentId)) {
+                if (action === 'approve') {
+                    // Check class capacity
+                    var enrollCount = new GlideAggregate('x_1620151_class_en_enrollments');
+                    enrollCount.addQuery('section', gr.getValue('section'));
+                    enrollCount.addQuery('state', 'enrolled');
+                    enrollCount.addAggregate('COUNT');
+                    enrollCount.query();
+                    
+                    var count = 0;
+                    if (enrollCount.next()) {
+                        count = parseInt(enrollCount.getAggregate('COUNT'), 10);
+                    }
+                    
+                    if (count >= 20) {
+                        return {
+                            success: false,
+                            message: "Cannot approve: Class has reached maximum capacity of 20 students."
+                        };
+                    }
+                    
+                    // Check unit limit
+                    var totalUnits = 0;
+                    var newUnits = 0;
+                    
+                    var courseGr = new GlideRecord('x_1620151_class_en_courses');
+                    if (courseGr.get(gr.getValue('course'))) {
+                        newUnits = parseInt(courseGr.getValue('units')) || 0;
+                        
+                        var enrollGr = new GlideRecord('x_1620151_class_en_enrollments');
+                        enrollGr.addQuery('student', gr.getValue('student'));
+                        enrollGr.addQuery('state', 'enrolled');
+                        enrollGr.addQuery('sys_id', '!=', enrollmentId);
+                        enrollGr.query();
+                        
+                        while (enrollGr.next()) {
+                            var enrolledCourse = new GlideRecord('x_1620151_class_en_courses');
+                            if (enrolledCourse.get(enrollGr.getValue('course'))) {
+                                totalUnits += parseInt(enrolledCourse.getValue('units')) || 0;
+                            }
+                        }
+                        
+                        if (totalUnits + newUnits > 21) {
+                            return {
+                                success: false,
+                                message: "Cannot approve: Exceeds student's unit limit of 21. Current units: " + 
+                                      totalUnits + ", Course units: " + newUnits
+                            };
+                        }
+                    }
+                    
+                    // Set to enrolled
+                    gr.state = 'enrolled';
+                } else if (action === 'reject') {
+                    // Set to not enrolled
+                    gr.state = 'not_enrolled';
+                } else {
+                    return {
+                        success: false,
+                        message: "Invalid action. Use 'approve' or 'reject'."
+                    };
+                }
+                
+                gr.work_notes = action.charAt(0).toUpperCase() + action.slice(1) + 
+                             'd by ' + gs.getUserName() + ' on ' + 
+                             new GlideDateTime().getDisplayValue();
+                
+                if (gr.update()) {
+                    return {
+                        success: true,
+                        message: "Enrollment " + action + "d successfully"
+                    };
+                } else {
+                    return {
+                        success: false,
+                        message: "Failed to update: " + gs.getMessage()
+                    };
+                }
+            } else {
+                return {
+                    success: false,
+                    message: "Enrollment record not found"
+                };
+            }
+        } catch (e) {
+            gs.error("Error updating enrollment: " + e);
+            return {
+                success: false,
+                message: "Error: " + e
+            };
+        }
+    };
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-11 12:52:35</sys_created_on>
         <sys_id>cef1acc847692250b3a2f884116d43c6</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>32</sys_mod_count>
         <sys_name>CEM Admin Approval</sys_name>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sp_widget_cef1acc847692250b3a2f884116d43c6</sys_update_name>
         <sys_updated_by>cem_admin.John</sys_updated_by>
-        <sys_updated_on>2025-05-12 11:32:52</sys_updated_on>
+        <sys_updated_on>2025-05-12 15:48:21</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary enrollment-approval-widget">
   <div class="panel-heading">
     <div class="pull-right">
@@ -282,6 +446,12 @@
   </div>
   
   <div class="panel-body">
+    <!-- Debug info (only visible during testing) -->
+    <div ng-if="c.data.debug" class="alert alert-warning">
+      <strong>Debug Info:</strong>
+      <pre>{{c.data.debugInfo}}</pre>
+    </div>
+    
     <!-- Loading indicator -->
     <div ng-if="c.loading" class="text-center p-3">
       <i class="fa fa-spinner fa-spin fa-2x"></i>
@@ -291,6 +461,10 @@
     <!-- Error message -->
     <div ng-if="c.data.error" class="alert alert-danger">
       <i class="fa fa-exclamation-triangle"></i> {{c.data.error}}
+      <div ng-if="c.data.errorDetails">
+        <hr>
+        <small><pre>{{c.data.errorDetails}}</pre></small>
+      </div>
     </div>
     
     <!-- No requests message -->

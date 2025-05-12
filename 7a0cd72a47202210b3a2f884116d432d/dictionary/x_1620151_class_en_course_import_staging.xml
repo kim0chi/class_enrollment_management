@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="d2dcaa8c8305e210b11359d0deaad389" label="Course Import Staging" max_length="40" name="x_1620151_class_en_course_import_staging" type="collection">
-        <element label="Description" max_length="1000" name="description" type="string"/>
-        <element label="Course Name" max_length="40" name="course_name" type="string"/>
-        <element label="Units" max_length="40" name="units" type="integer"/>
-        <element display="true" label="Course ID" max_length="40" name="course_id" type="string"/>
-    </element>
-</database>

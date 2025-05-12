@@ -7,19 +7,19 @@
         <desktop_image>82ae6af347112250b3a2f884116d4312</desktop_image>
         <editors/>
         <enable_wish_list>false</enable_wish_list>
-        <manager display_value="Admin ">980e1b2e47202210b3a2f884116d43d0</manager>
+        <manager display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</manager>
         <sys_class_name>sc_catalog</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-11 04:28:34</sys_created_on>
         <sys_id>2c5e6ef347112250b3a2f884116d43cf</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Class Enrollment Catalog</sys_name>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sc_catalog_2c5e6ef347112250b3a2f884116d43cf</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-11 04:28:49</sys_updated_on>
+        <sys_updated_on>2025-05-12 12:17:26</sys_updated_on>
         <title>Class Enrollment Catalog</title>
     </sc_catalog>
     <sys_translated_text action="delete_multiple" query="documentkey=2c5e6ef347112250b3a2f884116d43cf"/>

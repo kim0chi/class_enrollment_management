@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_attribute">
+    <sys_security_attribute action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition>Group=822d17a247202210b3a2f884116d4323</condition>
+        <description>Auto Created Attribute - ACL_0f0cc6504769a250b3a2f884116d43b2</description>
+        <is_dynamic>true</is_dynamic>
+        <is_localized>true</is_localized>
+        <is_system>false</is_system>
+        <label>ACL_0f0cc6504769a250b3a2f884116d43b2</label>
+        <lookup_table/>
+        <lookup_table_column/>
+        <name>x_1620151_class_en__ACL_0f0cc6504769a250b3a2f884116d43b2</name>
+        <script/>
+        <sys_class_name>sys_security_attribute</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-12 15:15:37</sys_created_on>
+        <sys_id>834c0e504769a250b3a2f884116d4308</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1620151_class_en__ACL_0f0cc6504769a250b3a2f884116d43b2</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sys_security_attribute_834c0e504769a250b3a2f884116d4308</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-12 15:15:37</sys_updated_on>
+        <type>compound</type>
+    </sys_security_attribute>
+</record_update>

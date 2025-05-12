@@ -7,22 +7,22 @@
         <hint>Access course enrollment management tools for faculty</hint>
         <name/>
         <order>100</order>
-        <roles>x_1620151_class_en.teacher,x_1620151_class_en.admin</roles>
+        <roles>CEM-Admin,CEM-Teacher</roles>
         <sys_class_name>sys_app_application</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-04-09 17:43:53</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>7f21f0fdc3f02210e53fd075e40131d8</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Class Enrollment Management</sys_name>
         <sys_overrides/>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sys_app_application_7f21f0fdc3f02210e53fd075e40131d8</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-09 17:43:53</sys_updated_on>
+        <sys_updated_by>admin.class_enrollment</sys_updated_by>
+        <sys_updated_on>2025-05-12 04:52:26</sys_updated_on>
         <title>Class Enrollment Management</title>
         <view_name/>
     </sys_app_application>

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="1fac8a64c334a210785d9e1d050131b9" label="Classes" max_length="40" name="x_1620151_class_en_classes" type="collection">
-        <element display="true" label="Section" max_length="40" name="section" type="string"/>
-        <element attributes="edge_encryption_enabled=true" label="Scheduled Time" max_length="40" name="scheduled_time" type="glide_time"/>
-        <element label="Number/Code" max_length="40" name="number_code" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" label="Course Name" max_length="40" name="course_name" type="string"/>
         <element label="Courses" max_length="4000" name="courses" reference="x_1620151_class_en_courses" type="glide_list"/>
-        <element attributes="edge_encryption_enabled=true" default="Active" label="Status" max_length="40" name="status" read_only="true" type="string"/>
+        <element display="true" label="Section" max_length="40" name="section" type="string"/>
         <element label="Teacher" max_length="32" name="teacher" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="teacher"/>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name>export_excel</action_name>
+        <action_name/>
         <active>true</active>
         <client>false</client>
         <client_script_v2><![CDATA[function onClick(g_form) {
 
 }]]></client_script_v2>
         <comments/>
-        <condition>gs.hasRole('x_1620151_class_en.admin')</condition>
+        <condition>gs.hasRole('CEM-Admin');</condition>
         <form_action>false</form_action>
         <form_button>false</form_button>
         <form_button_v2>false</form_button_v2>
@@ -34,12 +34,7 @@
     var tableName = 'x_1620151_class_en_courses'; 
     var exportUrl = '/sys_report_template.do?XLS&sysparm_table=' + tableName;
     action.setRedirectURL(exportUrl);
-})();
-
-
-
-
-]]></script>
+})();]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
@@ -50,15 +45,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>b7c2d23b83fc6210b11359d0deaad361</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>Export Course List to Excel</sys_name>
         <sys_overrides/>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sys_ui_action_b7c2d23b83fc6210b11359d0deaad361</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-19 04:24:45</sys_updated_on>
+        <sys_updated_by>admin.class_enrollment</sys_updated_by>
+        <sys_updated_on>2025-05-12 06:35:54</sys_updated_on>
         <table>x_1620151_class_en_courses</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

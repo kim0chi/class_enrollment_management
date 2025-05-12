@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
     <sp_header_footer action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($scope, $window) {
-  var c = this;
-  
-  // Initialize variables
-  c.searchTerm = '';
-  
-  // Function to search courses
-  c.searchCourses = function() {
-    if (!c.searchTerm.trim()) return;
-    
-    // Navigate to course page with search term
-    $window.location.href = '?id=cem_courses&search=' + encodeURIComponent(c.searchTerm);
-  };
-}]]></client_script>
+        <client_script><![CDATA[// Handle active navigation links
+$scope.isActive = function(path) {
+    return $location.path().indexOf(path) !== -1;
+};
+
+// Make nav links use the isActive function
+$scope.$watch(function() {
+    return $location.path();
+}, function(newPath) {
+    // Update active class on links
+    $('.header-nav a').removeClass('active');
+    $('.header-nav a').each(function() {
+        var href = $(this).attr('href').replace('#', '');
+        if (newPath.indexOf(href) !== -1) {
+            $(this).addClass('active');
+        }
+    });
+});]]></client_script>
         <controller_as>c</controller_as>
         <css>/* Header Styling */
 .cem-header {
@@ -37,11 +41,24 @@
   width: auto;
 }
 
-/* Navigation Styling */
+/* Navigation styling for different roles */
 .header-nav {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.header-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 12px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.header-nav a:hover, .header-nav a.active {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-links {
@@ -227,7 +244,8 @@
         <script><![CDATA[(function() {
   // Get current user information
   var user = gs.getUser();
-  
+  //
+	
   // Set basic user information
   data.userName = user.getDisplayName();
   data.userInitials = '';
@@ -246,11 +264,11 @@
   
   // Get user role
   data.userRole = '';
-  if (user.hasRole('x_1620151_class_en.student_role')) {
-    data.userRole = 'student';
-  } else if (user.hasRole('x_1620151_class_en.teacher_role')) {
+	if (user.hasRole('CEM-Student')) {
+  data.userRole = 'student';
+  } else if (user.hasRole('CEM-Teacher')) {
     data.userRole = 'teacher';
-  } else if (user.hasRole('x_1620151_class_en.admin_role')) {
+  } else if (user.hasRole('CEM-Admin')) {
     data.userRole = 'admin';
   }
 })();]]></script>
@@ -260,14 +278,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-01 05:07:28</sys_created_on>
         <sys_id>0ad6572447d12210b3a2f884116d431d</sys_id>
-        <sys_mod_count>56</sys_mod_count>
+        <sys_mod_count>79</sys_mod_count>
         <sys_name>CEM Header</sys_name>
         <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
         <sys_update_name>sp_header_footer_0ad6572447d12210b3a2f884116d431d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-11 17:52:41</sys_updated_on>
+        <sys_updated_on>2025-05-12 10:47:39</sys_updated_on>
         <template><![CDATA[<div class="cem-header">
   <div class="container">
     <div class="header-content">
@@ -279,16 +297,35 @@
       </div>
       
       <!-- Navigation Links -->
-      <div class="header-nav">
-        <ul class="nav-links">
-          <li><a href="?id=cem_menu" class="active">Menu</a></li>
-          <li><a href="?id=cem_courses">Browse Courses</a></li>
-          <li><a href="?id=cem_my_enrollments">My Enrollments</a></li>
-          <li><a href="?id=cem_schedule">My Schedule</a></li>
-          <li><a href="?id=cem_help">Help & FAQs</a></li>
-        </ul>
-      </div>
-      
+<div class="header-nav">
+    <!-- Student Navigation -->
+    <div ng-if="data.userRole == 'student'">
+        <a href="?id=cem_enroll">Enroll</a> |
+        <a href="?id=cem_my_enrollments">My Enrollments</a>
+    </div>
+    
+    <!-- Teacher Navigation -->
+    <div ng-if="data.userRole == 'teacher'">
+        <a href="#/idceu_my_classes">My Classes</a>
+    </div>
+    
+    <!-- Administrator Navigation -->
+    <div ng-if="data.userRole == 'admin'">
+        <a href="?id=cem_my_approvals">My Approvals</a> |
+        <a href="#/idceu_course_management">Course Management</a> |
+        <a href="#/idceu_class_management">Class Management</a> |
+        <a href="#/idceu_my_classes">My Classes</a> |
+        <a href="#/idceu_unassigned_classes">Unassigned Classes</a> |
+        <a href="#/idceu_enrollment_requests">Enrollment Requests</a> |
+        <a href="#/idceu_available_courses">Available Courses</a> |
+        <a href="#/idceu_reports">Reports</a>
+    </div>
+</div>
+      <!-- Admin Quick Actions -->
+<div ng-if="data.userRole == 'admin'" class="admin-actions">
+    <button class="btn btn-sm btn-primary" ng-click="openImportDialog()">Import Courses</button>
+    <button class="btn btn-sm btn-default" ng-click="exportCourses()">Export Courses</button>
+</div>
       <!-- User Profile Section -->
       <div class="header-user">
         <div class="user-info">
@@ -301,14 +338,8 @@
       </div>
     </div>
     
-    <!-- Search Bar -->
-    <div class="search-container">
-      <div class="search-bar">
-        <i class="fa fa-search search-icon"></i>
-        <input type="text" placeholder="Search for courses..." ng-model="c.searchTerm" ng-keyup="$event.keyCode === 13 && c.searchCourses()">
-        <button class="search-button" ng-click="c.searchCourses()">Search</button>
-      </div>
-    </div>
+    
+    
   </div>
 </div>]]></template>
     </sp_header_footer>

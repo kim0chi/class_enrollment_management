@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $http, spUtil) {
+    var c = this;
+    
+    // Prepare loading indicators
+    c.loading = true;
+    c.showApprovalLoading = false;
+    c.showRejectLoading = false;
+    
+    // Initialize from server data
+    c.server.update().then(function() {
+        c.loading = false;
+        // Debug any errors
+        if (c.data.error) {
+            console.error(c.data.error);
+            spUtil.addErrorMessage("Error loading enrollments: " + c.data.error);
+        }
+    });
+    
+    // Approve enrollment function
+    c.approveEnrollment = function(enrollment) {
+        c.showApprovalLoading = true;
+        
+        $http({
+            method: 'PUT',
+            url: '/api/now/table/x_1620151_class_en_enrollments/' + enrollment.sys_id,
+            data: {
+                state: 'Enrolled',
+                work_notes: 'Approved by administrator via approval widget'
+            }
+        }).then(function(response) {
+            spUtil.addInfoMessage("Enrollment approved successfully");
+            c.showApprovalLoading = false;
+            // Refresh the widget
+            c.server.update();
+        }, function(error) {
+            spUtil.addErrorMessage("Error approving enrollment: " + error.data.error.message);
+            c.showApprovalLoading = false;
+        });
+    };
+    
+    // Reject enrollment function
+    c.rejectEnrollment = function(enrollment) {
+        c.showRejectLoading = true;
+        
+        $http({
+            method: 'PUT',
+            url: '/api/now/table/x_1620151_class_en_enrollments/' + enrollment.sys_id,
+            data: {
+                state: 'Not Enrolled',
+                work_notes: 'Rejected by administrator via approval widget'
+            }
+        }).then(function(response) {
+            spUtil.addInfoMessage("Enrollment rejected successfully");
+            c.showRejectLoading = false;
+            // Refresh the widget
+            c.server.update();
+        }, function(error) {
+            spUtil.addErrorMessage("Error rejecting enrollment: " + error.data.error.message);
+            c.showRejectLoading = false;
+        });
+    };
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.enrollment-approval-widget {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.enrollment-approval-widget .panel-heading {
+  background-color: #1976d2;
+  color: white;
+}
+
+.enrollment-approval-widget .btn-group {
+  display: flex;
+  white-space: nowrap;
+}
+
+.enrollment-approval-widget .btn {
+  margin: 0 3px;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .enrollment-approval-widget .table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .enrollment-approval-widget .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .enrollment-approval-widget .btn {
+    margin: 3px 0;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>cem_approval</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CEM Approval</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    // Initialize data structure
+    data.pendingEnrollments = [];
+    
+    try {
+        // Use GlideRecordSecure to avoid cross-scope issues
+        var gr = new GlideRecordSecure('x_1620151_class_en_enrollments');
+        gr.addQuery('state', 'Pending');  // Make sure this matches your actual status field value
+        gr.orderByDesc('sys_created_on');
+        gr.query();
+        
+        while (gr.next()) {
+            // Get student name
+            var studentName = gr.student.getDisplayValue() || 'Unknown';
+            
+            // Get course details
+            var courseId = '';
+            var courseName = '';
+            var courseGR = new GlideRecordSecure('x_1620151_class_en_course');
+            if (courseGR.get(gr.getValue('course'))) {
+                courseId = courseGR.getValue('course_id');
+                courseName = courseGR.getValue('course_name');
+            }
+            
+            // Get section details
+            var sectionName = '';
+            var sectionGR = new GlideRecordSecure('x_1620151_class_en_class');
+            if (sectionGR.get(gr.getValue('section'))) {
+                sectionName = sectionGR.getValue('section');
+            }
+            
+            // Add enrollment record to list
+            data.pendingEnrollments.push({
+                sys_id: gr.getUniqueValue(),
+                number: gr.getValue('number'),
+                student_name: studentName,
+                course_id: courseId,
+                course_name: courseName,
+                section: sectionName,
+                created_date: gr.getDisplayValue('sys_created_on')
+            });
+        }
+        
+        // Debug info
+        gs.info('Found ' + data.pendingEnrollments.length + ' pending enrollments');
+    } catch (e) {
+        gs.error('Error in CEM Admin Approval widget: ' + e);
+        data.error = e.toString();
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-12 11:13:38</sys_created_on>
+        <sys_id>1ee4999c47e1a250b3a2f884116d4308</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CEM Approval</sys_name>
+        <sys_package display_value="Class Enrollment Management" source="x_1620151_class_en">7a0cd72a47202210b3a2f884116d432d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Class Enrollment Management">7a0cd72a47202210b3a2f884116d432d</sys_scope>
+        <sys_update_name>sp_widget_1ee4999c47e1a250b3a2f884116d4308</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-12 11:13:38</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary enrollment-approval-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-check-square"></i> Pending Enrollment Approvals</h3>
+  </div>
+  
+  <div class="panel-body">
+    <!-- Loading indicator -->
+    <div ng-if="c.loading" class="text-center p-3">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+      <p>Loading enrollment requests...</p>
+    </div>
+    
+    <!-- No requests message -->
+    <div ng-if="!c.loading && (!c.data.pendingEnrollments || c.data.pendingEnrollments.length === 0)" class="alert alert-info">
+      <i class="fa fa-info-circle"></i> There are no pending enrollment requests to approve.
+    </div>
+    
+    <!-- Requests table -->
+    <div ng-if="!c.loading && c.data.pendingEnrollments.length > 0">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Date Requested</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="enrollment in c.data.pendingEnrollments">
+            <td>{{enrollment.number}}</td>
+            <td>{{enrollment.student_name}}</td>
+            <td>{{enrollment.course_id}}: {{enrollment.course_name}}</td>
+            <td>{{enrollment.section}}</td>
+            <td>{{enrollment.created_date}}</td>
+            <td class="btn-group">
+              <button class="btn btn-success btn-sm" ng-click="c.approveEnrollment(enrollment)" ng-disabled="c.showApprovalLoading">
+                <i class="fa fa-check" ng-if="!c.showApprovalLoading"></i>
+                <i class="fa fa-spinner fa-spin" ng-if="c.showApprovalLoading"></i> Approve
+              </button>
+              <button class="btn btn-danger btn-sm" ng-click="c.rejectEnroll]]></template>
+    </sp_widget>
+</record_update>
